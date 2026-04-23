@@ -20,7 +20,6 @@ import org.bukkit.event.block.BlockBreakEvent;
 import vip.megumin.imagetomsg.ImageChar;
 import vip.megumin.imagetomsg.ImageMessage;
 import vip.megumin.anniPro.anniEvents.AnniEvent;
-import vip.megumin.anniPro.anniEvents.GameEndEvent;
 import vip.megumin.anniPro.anniEvents.NexusHitEvent;
 import vip.megumin.anniPro.main.AnnihilationMain;
 import vip.megumin.anniPro.main.Lang;
@@ -62,7 +61,7 @@ public class Nexus implements Listener
 		
 		if(destroyed == total-1)
 		{
-			AnniEvent.callEvent(new GameEndEvent(winner));
+			Game.endGame(winner);
 		}
 	}
 	

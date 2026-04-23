@@ -40,6 +40,7 @@ import vip.megumin.anniPro.kits.CustomItem;
 import vip.megumin.anniPro.kits.KitLoading;
 import vip.megumin.anniPro.mapBuilder.MapBuilder;
 import vip.megumin.anniPro.security.Log4jExploitFix;
+import vip.megumin.anniPro.stats.ProfileCommand;
 import vip.megumin.anniPro.utils.InvisibilityListeners;
 import vip.megumin.anniPro.voting.AutoStarter;
 import vip.megumin.anniPro.voting.ConfigManager;
@@ -52,6 +53,7 @@ public class AnnihilationMain extends JavaPlugin implements Listener
 { 
 	private static JavaPlugin instance;
     private XPMain xpMain;
+    private ProfileCommand profileCommand;
 	public static JavaPlugin getInstance()
 	{
 		return instance;
@@ -108,6 +110,7 @@ public class AnnihilationMain extends JavaPlugin implements Listener
 		new TeamCommand(this);
 		new GameListeners(this);
 		new AreaCommand(this);
+		profileCommand = new ProfileCommand(this);
 	}
 	
 	public void loadLang()
@@ -161,7 +164,7 @@ public class AnnihilationMain extends JavaPlugin implements Listener
 			@Override
 			public String getHelp() 
 			{
-				return ChatColor.LIGHT_PURPLE+"Start--"+ChatColor.GREEN+"Starts a game of Annihilation.";
+				return ChatColor.LIGHT_PURPLE+"Start--"+ChatColor.GREEN+"Starts a game of Annihilation. Permission: A.anni.start";
 			}
 
 			@Override
@@ -192,7 +195,7 @@ public class AnnihilationMain extends JavaPlugin implements Listener
 			@Override
 			public String getPermission() 
 			{
-				return null;
+				return "A.anni.start";
 			}
 
 			@Override
@@ -211,7 +214,7 @@ public class AnnihilationMain extends JavaPlugin implements Listener
 			@Override
 			public String getHelp() 
 			{
-				return ChatColor.LIGHT_PURPLE+"Mapbuilder--"+ChatColor.GREEN+"Gives the mapbuilder item.";
+				return ChatColor.LIGHT_PURPLE+"Mapbuilder--"+ChatColor.GREEN+"Gives the mapbuilder item. Permission: A.anni.mapbuilder";
 			}
 
 			@Override
@@ -238,7 +241,7 @@ public class AnnihilationMain extends JavaPlugin implements Listener
 			@Override
 			public String getPermission()
 			{
-				return null;
+				return "A.anni.mapbuilder";
 			}
 
 			@Override
@@ -256,7 +259,7 @@ public class AnnihilationMain extends JavaPlugin implements Listener
 			@Override
 			public String getHelp() 
 			{
-				return ChatColor.LIGHT_PURPLE+"Save [Config,World,All]--"+ChatColor.GREEN+"Saves the specified item.";
+				return ChatColor.LIGHT_PURPLE+"Save [Config,World,All]--"+ChatColor.GREEN+"Saves the specified item. Permission: A.anni.save";
 			}
 
 			@Override
@@ -306,7 +309,7 @@ public class AnnihilationMain extends JavaPlugin implements Listener
 			@Override
 			public String getPermission() 
 			{
-				return null;
+				return "A.anni.save";
 			}
 
 			@Override
@@ -325,6 +328,117 @@ public class AnnihilationMain extends JavaPlugin implements Listener
 					}}, new ItemStack(Material.ANVIL), 
 						ChatColor.GREEN+"Left click to save the Map Config.", ChatColor.GREEN+"Right click to save the Map World.",ChatColor.GREEN+"Shift click to save Both. (Config and World)");
 			}});
+		AnniCommand.registerArgument(new AnniArgument(){
+
+			@Override
+			public String getHelp()
+			{
+				return ChatColor.LIGHT_PURPLE+"Stop--"+ChatColor.GREEN+"Pauses the running Annihilation game. Permission: A.anni.stop";
+			}
+
+			@Override
+			public boolean useByPlayerOnly()
+			{
+				return false;
+			}
+
+			@Override
+			public String getArgumentName()
+			{
+				return "Stop";
+			}
+
+			@Override
+			public void executeCommand(CommandSender sender, String label, String[] args)
+			{
+				if(Game.forceStop())
+					Bukkit.broadcastMessage(ChatColor.RED+"The Annihilation game was paused by an administrator.");
+				else
+					sender.sendMessage(ChatColor.RED+"No game is currently running.");
+			}
+
+			@Override
+			public String getPermission()
+			{
+				return "A.anni.stop";
+			}
+
+			@Override
+			public MenuItem getMenuItem()
+			{
+				return new ActionMenuItem("Stop Game", new ItemClickHandler(){
+					@Override
+					public void onItemClick(ItemClickEvent event)
+					{
+						executeCommand(event.getPlayer(), null, new String[0]);
+						event.setWillClose(true);
+					}}, new ItemStack(Material.REDSTONE_BLOCK), ChatColor.RED+"Click to stop the game.");
+			}
+		});
+		AnniCommand.registerArgument(new AnniArgument(){
+
+			@Override
+			public String getHelp()
+			{
+				return ChatColor.LIGHT_PURPLE+"Nexus <team> <hp>--"+ChatColor.GREEN+"Sets a team's nexus HP. Permission: A.anni.nexus";
+			}
+
+			@Override
+			public boolean useByPlayerOnly()
+			{
+				return false;
+			}
+
+			@Override
+			public String getArgumentName()
+			{
+				return "Nexus";
+			}
+
+			@Override
+			public void executeCommand(CommandSender sender, String label, String[] args)
+			{
+				if(args == null || args.length < 2)
+				{
+					sender.sendMessage(ChatColor.RED+"Usage: /Anni Nexus <Red|Blue|Green|Yellow> <hp>");
+					return;
+				}
+				AnniTeam team = AnniTeam.getTeamByName(args[0]);
+				if(team == null)
+				{
+					sender.sendMessage(ChatColor.RED+"Unknown team: "+args[0]);
+					return;
+				}
+				try
+				{
+					int hp = Integer.parseInt(args[1]);
+					team.forceSetHealth(hp);
+					Bukkit.broadcastMessage(ChatColor.GOLD+"Admin set "+team.getExternalColoredName()+ChatColor.GOLD+" Nexus HP to "+hp+".");
+				}
+				catch(NumberFormatException e)
+				{
+					sender.sendMessage(ChatColor.RED+"HP must be a number.");
+				}
+			}
+
+			@Override
+			public String getPermission()
+			{
+				return "A.anni.nexus";
+			}
+
+			@Override
+			public MenuItem getMenuItem()
+			{
+				return new ActionMenuItem("Nexus HP Help", new ItemClickHandler(){
+					@Override
+					public void onItemClick(ItemClickEvent event)
+					{
+						event.getPlayer().sendMessage(ChatColor.YELLOW+"Use /Anni Nexus <Red|Blue|Green|Yellow> <hp>");
+						event.setWillClose(true);
+					}}, new ItemStack(Material.BEACON), ChatColor.GREEN+"Shows Nexus HP command usage.");
+			}
+		});
 	}
 	
 	private void handleAutoAndVoting()
@@ -392,6 +506,8 @@ public class AnnihilationMain extends JavaPlugin implements Listener
 	{
         if (xpMain != null)
             xpMain.onDisable();
+        if (profileCommand != null)
+            profileCommand.save();
 		for(AnniPlayer p : AnniPlayer.getPlayers())
 		{
 			if(p.isOnline())

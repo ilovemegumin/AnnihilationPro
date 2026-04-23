@@ -11,6 +11,7 @@ import org.bukkit.WorldCreator;
 import org.bukkit.World.Environment;
 
 import vip.megumin.anniPro.anniEvents.AnniEvent;
+import vip.megumin.anniPro.anniEvents.GameEndEvent;
 import vip.megumin.anniPro.anniEvents.GameStartEvent;
 import vip.megumin.anniPro.anniMap.GameMap;
 import vip.megumin.anniPro.anniMap.LobbyMap;
@@ -142,5 +143,26 @@ public class Game
 			}
 		}
 		return false;
+	}
+
+	public static boolean endGame(AnniTeam winner)
+	{
+		if(!GameRunning)
+			return false;
+		GameRunning = false;
+		AnniEvent.callEvent(new GameEndEvent(winner));
+		return true;
+	}
+
+	public static boolean forceStop()
+	{
+		if(!GameRunning)
+			return false;
+		GameRunning = false;
+		if(GameMap != null)
+		{
+			GameMap.setCanDamageNexus(false);
+		}
+		return true;
 	}
 }

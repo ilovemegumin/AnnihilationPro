@@ -42,15 +42,17 @@ public class Healer extends AnniKitBase
 				lowest.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 60, 2));
 				allies.remove(lowest);
 			}
+			player.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 100, 0));
 			event.setCancelled(true);
 		}
 		else if(event.getAction().name().contains("LEFT"))
 		{
 			if(startCooldown(player, "burstheal", 45000))
 				return;
-			Player target = getTargetPlayer(player, 6);
+			Player target = getTargetPlayer(player, 10);
 			if(target != null && isAlly(p, target))
 				healPlayer(target, 15.0);
+			player.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 300, 0));
 			event.setCancelled(true);
 		}
 	}

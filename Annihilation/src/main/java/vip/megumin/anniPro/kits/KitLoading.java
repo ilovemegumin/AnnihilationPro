@@ -230,7 +230,10 @@ public class KitLoading implements Listener, CommandExecutor
 			final Player player = event.getPlayer();
 			if(KitUtils.itemHasName(player.getItemInHand(), CustomItem.KITMAP.getName()))
 			{
-				openKitMap(player);
+				if(player.hasPermission("Anni.ChangeKit"))
+					openKitMap(player);
+				else
+					player.sendMessage(ChatColor.RED+"You can only change kits through the nexus portal.");
 				event.setCancelled(true);
 			}
 		}
@@ -345,7 +348,10 @@ public class KitLoading implements Listener, CommandExecutor
 				this.openKitMap(player);
 				return true;
 			}
+			player.sendMessage(ChatColor.RED+"You do not have permission to use /Kit. Use the nexus portal to change kits.");
+			return true;
 		}
+		sender.sendMessage(ChatColor.RED+"Only players can use /Kit.");
 		return false;
 	}
 }

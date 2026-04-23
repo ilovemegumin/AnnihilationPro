@@ -46,7 +46,8 @@ public class LobbyMap extends AnniMap
 			player.setHealth(player.getMaxHealth());
 			player.setFoodLevel(20);
 			player.setGameMode(GameVars.getDefaultGamemode());
-			player.getInventory().addItem(CustomItem.KITMAP.toItemStack());
+			if(player.hasPermission("Anni.ChangeKit"))
+				player.getInventory().addItem(CustomItem.KITMAP.toItemStack());
 			player.getInventory().addItem(CustomItem.TEAMMAP.toItemStack());
 			if(GameVars.getVoting())
 				player.getInventory().addItem(CustomItem.VOTEMAP.toItemStack());

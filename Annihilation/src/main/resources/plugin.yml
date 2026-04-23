@@ -18,9 +18,26 @@ commands:
     description: Shows the player's Annihilation XP
   Shop:
     description: Opens the kit shop
+  profile:
+    description: Shows Annihilation player statistics
 permissions:
   A.anni:
     description: gives permission to use the anni command
+    default: op
+  A.anni.start:
+    description: allows starting an Annihilation game
+    default: op
+  A.anni.stop:
+    description: allows stopping an Annihilation game
+    default: op
+  A.anni.nexus:
+    description: allows changing team nexus HP
+    default: op
+  A.anni.save:
+    description: allows saving map config and world files
+    default: op
+  A.anni.mapbuilder:
+    description: allows receiving mapbuilder setup items
     default: op
   A.Area:
     description: gives permission to use the anni command

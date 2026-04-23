@@ -10,6 +10,7 @@ import org.bukkit.event.EventPriority;
 import vip.megumin.anniPro.anniEvents.NexusHitEvent;
 import vip.megumin.anniPro.anniGame.AnniPlayer;
 import vip.megumin.anniPro.anniGame.AnniTeam;
+import vip.megumin.anniPro.anniGame.Game;
 
 public class Handyman extends AnniKitBase
 {
@@ -24,7 +25,7 @@ public class Handyman extends AnniKitBase
 	public void repair(NexusHitEvent event)
 	{
 		AnniPlayer player = event.getPlayer();
-		if(player != null && player.getKit() != null && player.getKit().equals(this) && player.getTeam() != null && !event.getHitNexus().Team.equals(player.getTeam()) && random.nextInt(100) < 35)
+		if(player != null && player.getKit() != null && player.getKit().equals(this) && player.getTeam() != null && !event.getHitNexus().Team.equals(player.getTeam()) && !player.getTeam().isTeamDead() && random.nextInt(100) < repairChance())
 		{
 			AnniTeam team = player.getTeam();
 			team.setHealth(team.getHealth() + 1);
@@ -32,5 +33,17 @@ public class Handyman extends AnniKitBase
 			if(bukkitPlayer != null)
 				bukkitPlayer.sendMessage(ChatColor.GREEN + "Your nexus was repaired by 1.");
 		}
+	}
+
+	private int repairChance()
+	{
+		int phase = Game.getGameMap() == null ? 2 : Game.getGameMap().getCurrentPhase();
+		if(phase <= 2)
+			return 25;
+		if(phase == 3)
+			return 20;
+		if(phase == 4)
+			return 15;
+		return 10;
 	}
 }

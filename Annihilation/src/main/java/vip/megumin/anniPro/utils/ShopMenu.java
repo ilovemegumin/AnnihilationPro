@@ -6,6 +6,8 @@ import org.bukkit.inventory.ItemStack;
 
 import vip.megumin.anniPro.itemMenus.ItemMenu;
 import vip.megumin.anniPro.itemMenus.ItemMenu.Size;
+import vip.megumin.anniPro.kits.KitUtils;
+import vip.megumin.kits.Builder;
  
 public class ShopMenu
 {
@@ -13,7 +15,7 @@ public class ShopMenu
 	private static final ItemMenu brewing;
 	static
 	{
-		weapon = new ItemMenu("Weapon Shop",Size.TWO_LINE);
+		weapon = new ItemMenu("Weapon Shop",Size.THREE_LINE);
 		brewing = new ItemMenu("Brewing Shop",Size.THREE_LINE);
 		buildBrewingShop(brewing);
 		buildWeaponShop(weapon);
@@ -29,49 +31,69 @@ public class ShopMenu
 			boolean cat = true;
 			switch(x)
 			{
-                case 0:
-					icon = new ItemStack(Material.CHAINMAIL_HELMET,1);
-					cost = 10;
+				case 0:
+					icon = new ItemStack(Material.IRON_HELMET,1);
+					cost = 3;
 					break;
 				case 1:
-					icon = new ItemStack(Material.CHAINMAIL_CHESTPLATE,1);
-					cost = 10;
+					icon = new ItemStack(Material.IRON_CHESTPLATE,1);
+					cost = 5;
 					break;
 				case 2:
-					icon = new ItemStack(Material.CHAINMAIL_LEGGINGS,1);
-					cost = 10;
+					icon = new ItemStack(Material.IRON_LEGGINGS,1);
+					cost = 5;
 					break;
 				case 3:
-					icon = new ItemStack(Material.CHAINMAIL_BOOTS,1);
-					cost = 10;
+					icon = new ItemStack(Material.IRON_BOOTS,1);
+					cost = 3;
 					break;
 				case 4:
 					icon = new ItemStack(Material.IRON_SWORD,1);
-					cost = 5;
+					cost = 1;
 					break;
 				case 5:
 					icon = new ItemStack(Material.BOW,1);
-					cost = 5;
+					cost = 1;
 					break;
 				case 6:
 					icon = new ItemStack(Material.ARROW,16);
-					cost = 5;
+					cost = 1;
 					break;
 				case 9:
-					icon = new ItemStack(Material.FISHING_ROD,1);
-					cost = 5;
+					icon = new ItemStack(Material.CAKE,1);
+					cost = 1;
 					break;
 				case 10:
-					icon = new ItemStack(Material.CAKE,1);
+					icon = new ItemStack(Material.COOKED_BEEF,10);
 					cost = 5;
 					break;
 				case 11:
-					icon = new ItemStack(Material.RAW_BEEF,3);
-					cost = 5;
+					icon = new ItemStack(Material.WEB,1);
+					cost = 1;
 					break;
 				case 12:
-					icon = new ItemStack(Material.BOOK,1);
+					icon = new ItemStack(Material.EXP_BOTTLE,1);
+					cost = 2;
+					break;
+				case 13:
+					icon = new ItemStack(Material.ENDER_PEARL,1);
+					cost = 35;
+					break;
+				case 14:
+					icon = new ItemStack(Material.MILK_BUCKET,1);
 					cost = 5;
+					break;
+				case 15:
+					icon = new ItemStack(Material.IRON_DOOR,1);
+					cost = 10;
+					break;
+				case 16:
+					icon = new ItemStack(Material.SPONGE,1);
+					cost = 5;
+					break;
+				case 17:
+					icon = Builder.delayingBlock();
+					cost = 20;
 					break;
                 default:
                     cat = false;
@@ -108,16 +130,8 @@ public class ShopMenu
 					icon = new ItemStack(Material.REDSTONE,1);
 					cost = 3;
 					break;
-				case 10:
-					icon = new ItemStack(Material.GLOWSTONE_DUST,1);
-					cost = 3;
-					break;
 				case 11:
 					icon = new ItemStack(Material.FERMENTED_SPIDER_EYE,1);
-					cost = 3;
-					break;
-				case 12:
-					icon = new ItemStack(Material.SULPHUR,1);
 					cost = 3;
 					break;
 				case 18:

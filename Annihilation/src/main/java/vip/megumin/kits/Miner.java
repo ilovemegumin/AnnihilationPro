@@ -9,10 +9,16 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import vip.megumin.anniPro.anniEvents.ResourceBreakEvent;
+import vip.megumin.anniPro.anniGame.AnniPlayer;
+import vip.megumin.anniPro.kits.KitUtils;
 import vip.megumin.anniPro.kits.Loadout;
+import vip.megumin.anniPro.main.AnnihilationMain;
 import vip.megumin.base.ConfigurableKit;
 
 public class Miner extends ConfigurableKit
@@ -20,11 +26,15 @@ public class Miner extends ConfigurableKit
 
 	
 	private Random rand;
+	private java.util.Set<java.util.UUID> goldRush;
+	private java.util.Map<java.util.UUID,Long> cooldowns;
 	
 	@Override
 	protected void setUp()
 	{
 		rand = new Random(System.currentTimeMillis());
+		goldRush = new java.util.HashSet<java.util.UUID>();
+		cooldowns = new java.util.HashMap<java.util.UUID,Long>();
 	}
 
 	@Override
@@ -81,8 +91,9 @@ public class Miner extends ConfigurableKit
 				{
 					for(int x = 0; x < products.length; x++)
 					{
-						boolean y = rand.nextBoolean();
-						if(y)
+						if(goldRush.contains(event.getPlayer().getID()))
+							products[x].setAmount(products[x].getAmount() * (rand.nextInt(100) < 33 ? 3 : 2));
+						else if(rand.nextInt(100) < 80)
 							products[x].setAmount(products[x].getAmount()*2);
 					}
 				}
@@ -90,11 +101,38 @@ public class Miner extends ConfigurableKit
 			}
 		}
 	}
+
+	@EventHandler(priority = EventPriority.HIGHEST)
+	public void goldRush(PlayerInteractEvent event)
+	{
+		final Player player = event.getPlayer();
+		final AnniPlayer anniPlayer = AnniPlayer.getPlayer(player.getUniqueId());
+		if(anniPlayer != null && anniPlayer.getKit().equals(this) && event.getAction().name().contains("RIGHT") && KitUtils.itemHasName(event.getItem(), org.bukkit.ChatColor.GOLD+"Gold Rush"))
+		{
+			Long end = cooldowns.get(player.getUniqueId());
+			if(end != null && end.longValue() > System.currentTimeMillis())
+			{
+				player.sendMessage(org.bukkit.ChatColor.RED+"Cooldown: "+((end.longValue()-System.currentTimeMillis()+999)/1000)+"s");
+				return;
+			}
+			cooldowns.put(player.getUniqueId(), System.currentTimeMillis()+60000);
+			goldRush.add(player.getUniqueId());
+			new BukkitRunnable(){
+				@Override
+				public void run()
+				{
+					goldRush.remove(player.getUniqueId());
+				}
+			}.runTaskLater(AnnihilationMain.getInstance(), 200);
+			event.setCancelled(true);
+		}
+	}
 	
 	@Override
 	protected Loadout getFinalLoadout()
 	{
-		return new Loadout().addWoodSword().addSoulboundEnchantedItem(new ItemStack(Material.STONE_PICKAXE), Enchantment.DIG_SPEED, 1).addWoodAxe().addItem(new ItemStack(Material.COAL,4))
+		return new Loadout().addWoodSword().addSoulboundEnchantedItem(new ItemStack(Material.STONE_PICKAXE), Enchantment.DIG_SPEED, 1).addWoodAxe()
+				.addSoulboundItem(KitUtils.setName(new ItemStack(Material.GOLD_NUGGET), org.bukkit.ChatColor.GOLD+"Gold Rush")).addItem(new ItemStack(Material.COAL,8))
 				.addSoulboundItem(new ItemStack(Material.FURNACE));
 	}
 

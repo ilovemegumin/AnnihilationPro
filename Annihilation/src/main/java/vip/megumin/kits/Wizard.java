@@ -16,10 +16,16 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import vip.megumin.anniPro.anniGame.AnniPlayer;
+import vip.megumin.anniPro.itemMenus.ActionMenuItem;
+import vip.megumin.anniPro.itemMenus.ItemClickEvent;
+import vip.megumin.anniPro.itemMenus.ItemClickHandler;
+import vip.megumin.anniPro.itemMenus.ItemMenu;
+import vip.megumin.anniPro.itemMenus.ItemMenu.Size;
 
 public class Wizard extends AnniKitBase
 {
 	private final Map<UUID, String> selectedSpell = new HashMap<UUID, String>();
+	private final Map<UUID, ItemMenu> menus = new HashMap<UUID, ItemMenu>();
 
 	public Wizard()
 	{
@@ -37,7 +43,7 @@ public class Wizard extends AnniKitBase
 			return;
 		if(namedLike(event.getItem(), "Spellbook"))
 		{
-			cycle(player);
+			menu(player).open(player);
 			event.setCancelled(true);
 		}
 		else if(namedLike(event.getItem(), "Wand"))
@@ -47,29 +53,41 @@ public class Wizard extends AnniKitBase
 		}
 	}
 
-	private void cycle(Player player)
+	private ItemMenu menu(final Player player)
 	{
-		String current = selectedSpell.get(player.getUniqueId());
-		String next = "Inferno";
-		if("Inferno".equals(current))
-			next = "Void Bolt";
-		else if("Void Bolt".equals(current))
-			next = "Arcane Bolt";
-		else if("Arcane Bolt".equals(current))
-			next = "Glacial Nova";
-		else if("Glacial Nova".equals(current))
-			next = "Whirlwind";
-		selectedSpell.put(player.getUniqueId(), next);
-		player.sendMessage(ChatColor.AQUA + "Selected spell: " + next);
+		ItemMenu menu = menus.get(player.getUniqueId());
+		if(menu != null)
+			return menu;
+		menu = new ItemMenu("Wizard Spells", Size.ONE_LINE);
+		addSpell(menu, 0, player, "Inferno", Material.FLINT_AND_STEEL, "50s cooldown: set enemies on fire.");
+		addSpell(menu, 1, player, "Void Bolt", Material.ENDER_PEARL, "50s cooldown: wither enemies.");
+		addSpell(menu, 2, player, "Arcane Bolt", Material.NETHER_STAR, "30s cooldown: area magic damage.");
+		addSpell(menu, 3, player, "Glacial Nova", Material.ICE, "35s cooldown: slow and fatigue enemies.");
+		addSpell(menu, 4, player, "Whirlwind", Material.FEATHER, "25s cooldown: knock enemies away.");
+		menus.put(player.getUniqueId(), menu);
+		return menu;
+	}
+
+	private void addSpell(ItemMenu menu, int slot, final Player player, final String spell, Material icon, String lore)
+	{
+		menu.setItem(slot, new ActionMenuItem(ChatColor.AQUA+spell, new ItemClickHandler(){
+			@Override
+			public void onItemClick(ItemClickEvent event)
+			{
+				selectedSpell.put(player.getUniqueId(), spell);
+				player.sendMessage(ChatColor.AQUA+"Selected spell: "+spell);
+				event.setWillClose(true);
+			}
+		}, new org.bukkit.inventory.ItemStack(icon), ChatColor.GRAY+lore));
 	}
 
 	private void cast(Player player, AnniPlayer p)
 	{
-		if(startCooldown(player, "spell", 15000))
-			return;
 		String spell = selectedSpell.get(player.getUniqueId());
 		if(spell == null)
 			spell = "Inferno";
+		if(startCooldown(player, "spell:"+spell, spellCooldown(spell)))
+			return;
 		Player target = getTargetPlayer(player, 30);
 		Location center = target == null ? player.getLocation().add(player.getLocation().getDirection().normalize().multiply(8)) : target.getLocation();
 		int radius = "Whirlwind".equals(spell) ? 3 : ("Glacial Nova".equals(spell) ? 2 : 1);
@@ -90,5 +108,16 @@ public class Wizard extends AnniKitBase
 				enemy.setVelocity(enemy.getLocation().toVector().subtract(center.toVector()).normalize().multiply(1.5).setY(0.7));
 		}
 		player.playSound(player.getLocation(), Sound.WITHER_SHOOT, 1F, 1.5F);
+	}
+
+	private long spellCooldown(String spell)
+	{
+		if("Inferno".equals(spell) || "Void Bolt".equals(spell))
+			return 50000;
+		if("Arcane Bolt".equals(spell))
+			return 30000;
+		if("Glacial Nova".equals(spell))
+			return 35000;
+		return 25000;
 	}
 }

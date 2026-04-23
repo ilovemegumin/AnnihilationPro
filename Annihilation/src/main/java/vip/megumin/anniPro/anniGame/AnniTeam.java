@@ -187,6 +187,14 @@ public final class AnniTeam
 			ScoreboardAPI.setScore(this, this.Health);
 		}
 	}
+
+	public void forceSetHealth(int health)
+	{
+		if(health < 0)
+			health = 0;
+		this.Health = health;
+		ScoreboardAPI.setScore(this, this.Health);
+	}
 	
 	public void clearSpawns()
 	{

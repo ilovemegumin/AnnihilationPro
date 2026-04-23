@@ -4,12 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.Material;
+import org.bukkit.ChatColor;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -27,7 +29,6 @@ public class Defender extends ConfigurableKit
 	@Override
 	protected void setUp() 
 	{
-		
 	}
 
 	@Override
@@ -98,7 +99,22 @@ public class Defender extends ConfigurableKit
 	@Override
 	protected Loadout getFinalLoadout()
 	{
-		return new Loadout().addWoodSword().addWoodPick().addWoodAxe().addWoodShovel().setUseDefaultArmor(true).setArmor(2,KitUtils.addSoulbound(new ItemStack(Material.CHAINMAIL_CHESTPLATE)));
+		return new Loadout().addWoodSword().addWoodPick().addWoodAxe().addWoodShovel()
+				.addSoulboundItem(KitUtils.setName(new ItemStack(Material.INK_SACK, 1, (short)10), ChatColor.GREEN+"Guardian's Warp"))
+				.setUseDefaultArmor(true).setArmor(2,KitUtils.addSoulbound(new ItemStack(Material.CHAINMAIL_CHESTPLATE)));
+	}
+
+	@EventHandler(priority = EventPriority.HIGHEST)
+	public void guardianWarp(PlayerInteractEvent event)
+	{
+		Player player = event.getPlayer();
+		AnniPlayer p = AnniPlayer.getPlayer(player.getUniqueId());
+		if(p != null && p.getKit().equals(this) && p.getTeam() != null && event.getAction().name().contains("RIGHT") && KitUtils.itemHasName(event.getItem(), ChatColor.GREEN+"Guardian's Warp"))
+		{
+			if(p.getTeam().getNexus().getLocation() != null)
+				player.teleport(p.getTeam().getNexus().getLocation().toLocation().add(0.5, 1, 0.5));
+			event.setCancelled(true);
+		}
 	}
 
 }

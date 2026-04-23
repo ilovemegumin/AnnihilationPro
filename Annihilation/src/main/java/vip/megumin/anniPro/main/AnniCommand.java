@@ -100,8 +100,12 @@ public class AnniCommand
 		{
 			if(argument.getPermission() != null)
 			{
-				Permission perm = new Permission(argument.getPermission());
-				Bukkit.getPluginManager().addPermission(perm);
+				Permission perm = Bukkit.getPluginManager().getPermission(argument.getPermission());
+				if(perm == null)
+				{
+					perm = new Permission(argument.getPermission());
+					Bukkit.getPluginManager().addPermission(perm);
+				}
 				perm.recalculatePermissibles();
 			}
 			arguments.put(argument.getArgumentName().toLowerCase(), argument);
@@ -144,6 +148,11 @@ public class AnniCommand
 					AnniArgument arg = arguments.get(args[0].toLowerCase());
 					if(arg != null)
 					{
+						if(arg.getPermission() != null && !sender.hasPermission(arg.getPermission()))
+						{
+							sender.sendMessage(ChatColor.RED+"You do not have permission to use /"+label+" "+arg.getArgumentName()+".");
+							return true;
+						}
 						if(arg.useByPlayerOnly())
 						{
 							if(!(sender instanceof Player))

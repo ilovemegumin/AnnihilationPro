@@ -32,10 +32,12 @@ public class Mercenary extends AnniKitBase
 		AnniPlayer p = getCurrentPlayer(player);
 		if(p != null && event.getAction().name().contains("RIGHT") && namedLike(event.getItem(), "Mark"))
 		{
+			if(startCooldown(player, "mark", 20000))
+				return;
 			Player target = getTargetPlayer(player, 20);
 			if(target != null && isEnemy(p, target))
 			{
-				marks.put(target.getUniqueId(), System.currentTimeMillis() + 30000);
+				marks.put(target.getUniqueId(), System.currentTimeMillis() + 10000);
 				target.sendMessage(ChatColor.RED + "You have been marked!");
 				player.sendMessage(ChatColor.GREEN + "Marked " + target.getName() + ".");
 			}
@@ -51,7 +53,7 @@ public class Mercenary extends AnniKitBase
 		{
 			Long until = marks.get(event.getEntity().getUniqueId());
 			if(until != null && until.longValue() > System.currentTimeMillis())
-				event.setDamage(event.getDamage() + 1.0);
+				event.setDamage(event.getDamage() * 1.3);
 		}
 	}
 }
