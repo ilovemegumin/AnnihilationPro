@@ -34,7 +34,7 @@ public class Builder extends AnniKitBase
 			player.getInventory().addItem(KitUtils.addSoulbound(new ItemStack(Material.DIRT, 48)));
 			player.getInventory().addItem(KitUtils.addSoulbound(new ItemStack(Material.STONE, 32)));
 			player.getInventory().addItem(KitUtils.addSoulbound(new ItemStack(Material.BRICK, 16)));
-			player.getInventory().addItem(KitUtils.addSoulbound(new ItemStack(Material.WOOL, 16)))
+			player.getInventory().addItem(KitUtils.addSoulbound(new ItemStack(Material.WOOL, 16)));
 			event.setCancelled(true);
 		}
 		else if(namedLike(event.getItem(), "Replication Cache"))
