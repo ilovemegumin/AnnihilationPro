@@ -25,7 +25,6 @@ import vip.megumin.anniPro.main.AnniCommand;
 import vip.megumin.anniPro.main.AnnihilationMain;
 import vip.megumin.anniPro.utils.Perm;
 import vip.megumin.anniPro.voting.ConfigManager;
-import vip.megumin.kits.AnniClassCatalog;
 import vip.megumin.xpSystem.shop.Shop;
 
 public final class XPMain implements Listener
@@ -98,7 +97,7 @@ public final class XPMain implements Listener
         if(kitPrices == null)
             kitPrices = shopSec.createSection("Kits");
         for(Kit kit : Kit.getKits())
-            x += ConfigManager.setDefaultIfNotSet(kitPrices, kit.getName(), AnniClassCatalog.getDefaultPrice(kit.getName()));
+            x += ConfigManager.setDefaultIfNotSet(kitPrices, kit.getName(), kit.getName().equalsIgnoreCase("Civilian") ? 0 : 15000);
 
         if (x > 0)
             saveConfig();

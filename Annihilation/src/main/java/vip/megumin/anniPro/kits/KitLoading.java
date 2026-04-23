@@ -8,23 +8,44 @@ import java.util.Map;
 import java.util.UUID;
 
 import vip.megumin.kits.Acrobat;
+import vip.megumin.kits.Alchemist;
 import vip.megumin.kits.Archer;
 import vip.megumin.kits.Assassin;
-import vip.megumin.kits.AnniClassCatalog;
+import vip.megumin.kits.Bard;
 import vip.megumin.kits.Berserker;
+import vip.megumin.kits.Bloodmage;
+import vip.megumin.kits.Builder;
+import vip.megumin.kits.Dasher;
 import vip.megumin.kits.Defender;
 import vip.megumin.kits.Enchanter;
+import vip.megumin.kits.Engineer;
+import vip.megumin.kits.Farmer;
+import vip.megumin.kits.Handyman;
+import vip.megumin.kits.Healer;
+import vip.megumin.kits.Hunter;
+import vip.megumin.kits.Immobilizer;
 import vip.megumin.kits.Lumberjack;
+import vip.megumin.kits.Mercenary;
 import vip.megumin.kits.Miner;
+import vip.megumin.kits.Neptune;
+import vip.megumin.kits.Ninja;
 import vip.megumin.kits.Pyro;
+import vip.megumin.kits.RiftWalker;
+import vip.megumin.kits.RobinHood;
 import vip.megumin.kits.Scorpio;
 import vip.megumin.kits.Scout;
+import vip.megumin.kits.Sniper;
+import vip.megumin.kits.Spider;
+import vip.megumin.kits.Spy;
 import vip.megumin.kits.Succubus;
 import vip.megumin.kits.Swapper;
+import vip.megumin.kits.Tank;
 import vip.megumin.kits.Thor;
+import vip.megumin.kits.Tinkerer;
 import vip.megumin.kits.Transporter;
 import vip.megumin.kits.Vampire;
 import vip.megumin.kits.Warrior;
+import vip.megumin.kits.Wizard;
 import vip.megumin.anniPro.main.Lang;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -93,22 +114,44 @@ public class KitLoading implements Listener, CommandExecutor
 		Class<? extends Kit>[] builtIns = new Class[]
 		{
 			Acrobat.class,
+			Alchemist.class,
 			Archer.class,
 			Assassin.class,
+			Bard.class,
 			Berserker.class,
+			Bloodmage.class,
+			Builder.class,
+			Dasher.class,
 			Defender.class,
 			Enchanter.class,
+			Engineer.class,
+			Farmer.class,
+			Handyman.class,
+			Healer.class,
+			Hunter.class,
+			Immobilizer.class,
 			Lumberjack.class,
+			Mercenary.class,
 			Miner.class,
+			Neptune.class,
+			Ninja.class,
 			Pyro.class,
+			RiftWalker.class,
+			RobinHood.class,
 			Scorpio.class,
 			Scout.class,
+			Sniper.class,
+			Spider.class,
+			Spy.class,
 			Succubus.class,
 			Swapper.class,
+			Tank.class,
 			Thor.class,
+			Tinkerer.class,
 			Transporter.class,
 			Vampire.class,
-			Warrior.class
+			Warrior.class,
+			Wizard.class
 		};
 
 		for (Class<? extends Kit> kitClass : builtIns)
@@ -124,8 +167,6 @@ public class KitLoading implements Listener, CommandExecutor
 			}
 		}
 
-		for(Kit kit : AnniClassCatalog.createMissingKits())
-			registerKit(plugin, kit);
 	}
 
 	private void registerKit(JavaPlugin plugin, Kit kit)
