@@ -100,14 +100,22 @@ public class AnnounceBar
         }, 20L, 20L).getTaskId();
     }
 
-    private void cancelUpdater()
-    {
-        if(timer != null)
-        {
-            Bukkit.getScheduler().cancelTask(timer);
-            timer = null;
-        }
-    }
+	private void cancelUpdater()
+	{
+		if(timer != null)
+		{
+			Bukkit.getScheduler().cancelTask(timer);
+			timer = null;
+		}
+	}
+
+	/** Cancels active countdown and clears state. */
+	public void cancelCountdown()
+	{
+		cancelUpdater();
+		this.announcement = null;
+		this.timeLeft = 0;
+	}
 
     private static String format(long miliseconds)
     {

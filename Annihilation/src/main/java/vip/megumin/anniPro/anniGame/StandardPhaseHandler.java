@@ -1,11 +1,8 @@
 package vip.megumin.anniPro.anniGame;
 
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-
-import javax.imageio.ImageIO;
 
 import vip.megumin.anniPro.announcementBar.AnnounceBar;
 import vip.megumin.anniPro.announcementBar.Announcement;
@@ -18,9 +15,9 @@ import org.bukkit.entity.Player;
 import vip.megumin.imagetomsg.ImageChar;
 import vip.megumin.imagetomsg.ImageMessage;
 import vip.megumin.anniPro.anniMap.GameMap;
-import vip.megumin.anniPro.main.AnnihilationMain;
 import vip.megumin.anniPro.main.Lang;
 import vip.megumin.anniPro.utils.Loc;
+import vip.megumin.anniPro.utils.ResourceImages;
 import vip.megumin.anniPro.utils.ShopMenu;
 import vip.megumin.anniPro.voting.ScoreboardAPI;
 
@@ -32,9 +29,9 @@ public class StandardPhaseHandler implements Runnable
 		images = new HashMap<Integer,ImageMessage>();
 		for(int x = 1; x < 6; x++)
 		{
-			try
+			BufferedImage image = ResourceImages.read("Phase"+x+".png");
+			if(image != null)
 			{
-				BufferedImage image = ImageIO.read(AnnihilationMain.getInstance().getResource("Images/Phase"+x+".png"));
 				ImageMessage message =  new ImageMessage(image, 10, ImageChar.MEDIUM_SHADE.getChar());
 				message.appendTextToLine(5,Lang.PHASESTART.toStringReplacement(x));
 				if(x == 1)
@@ -49,10 +46,6 @@ public class StandardPhaseHandler implements Runnable
 					message.appendTextToLines(6,Lang.PHASE5MESSAGE.toStringArray());
 				images.put(x, message);
 			}
-			catch (IOException e)
-			{
-				e.printStackTrace();
-			}
 		}
 		sendImage(1);
 	}
@@ -60,6 +53,8 @@ public class StandardPhaseHandler implements Runnable
 	private void sendImage(int x)
 	{
 		ImageMessage m = images.get(x);
+		if(m == null)
+			return;
 		for(Player player : Bukkit.getOnlinePlayers())
 		{
 			m.sendToPlayer(player);
@@ -69,6 +64,8 @@ public class StandardPhaseHandler implements Runnable
 	@Override
 	public void run()
 	{
+		if(!Game.isGameRunning())
+			return;
 		if(Game.getGameMap() != null)
 		{
 			GameMap map = Game.getGameMap();

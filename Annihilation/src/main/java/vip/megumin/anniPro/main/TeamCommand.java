@@ -1,11 +1,8 @@
 package vip.megumin.anniPro.main;
 
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.util.EnumMap;
 import java.util.Map;
-
-import javax.imageio.ImageIO;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -35,6 +32,7 @@ import vip.megumin.anniPro.itemMenus.ItemMenu;
 import vip.megumin.anniPro.itemMenus.ItemMenu.Size;
 import vip.megumin.anniPro.kits.CustomItem;
 import vip.megumin.anniPro.kits.KitUtils;
+import vip.megumin.anniPro.utils.ResourceImages;
 
 public class TeamCommand implements CommandExecutor, Listener
 {
@@ -50,10 +48,9 @@ public class TeamCommand implements CommandExecutor, Listener
 		int x = 0;
 		for(final AnniTeam team : AnniTeam.Teams)
 		{
-			BufferedImage image;
-			try
+			BufferedImage image = ResourceImages.read(team.getName()+"Team.png");
+			if(image != null)
 			{
-				image = ImageIO.read(AnnihilationMain.getInstance().getResource("Images/"+team.getName()+"Team.png"));
 				String[] lore = new String[]
 				{
 					"",
@@ -65,10 +62,6 @@ public class TeamCommand implements CommandExecutor, Listener
 				};
 				ImageMessage message =  new ImageMessage(image, 10, ImageChar.MEDIUM_SHADE.getChar()).appendText(lore);
 				messages.put(team.getColor(), message);
-			}
-			catch (IOException e)
-			{
-				e.printStackTrace();
 			}
 			
 			byte datavalue;
@@ -244,7 +237,8 @@ public class TeamCommand implements CommandExecutor, Listener
 		team.joinTeam(player);
 		Player p = player.getPlayer();
 		ImageMessage m = messages.get(team.getColor());
-		m.sendToPlayer(p);
+		if(m != null)
+			m.sendToPlayer(p);
 		if(Game.isGameRunning())
 			p.setHealth(0);
 

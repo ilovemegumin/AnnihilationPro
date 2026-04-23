@@ -14,11 +14,39 @@ import java.nio.file.attribute.BasicFileAttributes;
 
 public final class WorldBackupRestorer
 {
-    private WorldBackupRestorer()
-    {
-    }
+	private WorldBackupRestorer()
+	{
+	}
 
-    public static void restoreWorlds(Plugin plugin)
+	public static void backupWorldDirectory(File worldDir)
+	{
+		if(worldDir == null || !worldDir.isDirectory()) return;
+
+		Plugin plugin = vip.megumin.anniPro.main.AnnihilationMain.getInstance();
+		File pluginDirectory = plugin.getDataFolder().getParentFile();
+		if(pluginDirectory == null) return;
+
+		File annihilationDirectory = new File(pluginDirectory, "Annihilation");
+		File backupDir = new File(annihilationDirectory, "WorldBackups");
+		if(!backupDir.exists())
+			backupDir.mkdirs();
+
+		File dest = new File(backupDir, worldDir.getName());
+		try
+		{
+			if(dest.exists())
+				deleteRecursively(dest.toPath());
+			copyRecursively(worldDir.toPath(), dest.toPath());
+			Bukkit.getLogger().info("[Annihilation] Backed up world \"" + worldDir.getName() + "\" to WorldBackups.");
+		}
+		catch(IOException e)
+		{
+			Bukkit.getLogger().severe("[Annihilation] Failed to backup world: " + worldDir.getName());
+			e.printStackTrace();
+		}
+	}
+
+	public static void restoreWorlds(Plugin plugin)
     {
         File pluginDirectory = plugin.getDataFolder().getParentFile();
         if (pluginDirectory == null)

@@ -98,16 +98,27 @@ public class AnniCommand
 	{
 		if(argument != null)
 		{
-			if(argument.getPermission() != null)
-			{
-				Permission perm = Bukkit.getPluginManager().getPermission(argument.getPermission());
-				if(perm == null)
-				{
-					perm = new Permission(argument.getPermission());
-					Bukkit.getPluginManager().addPermission(perm);
-				}
-				perm.recalculatePermissibles();
-			}
+            if(argument.getPermission() != null)
+            {
+                Permission perm = Bukkit.getPluginManager().getPermission(argument.getPermission());
+                if(perm == null)
+                {
+                    try
+                    {
+                        perm = new Permission(argument.getPermission());
+                        Bukkit.getPluginManager().addPermission(perm);
+                    }
+                    catch (IllegalArgumentException ignored)
+                    {
+                        // Already registered (e.g. from plugin.yml) - retrieve it
+                        perm = Bukkit.getPluginManager().getPermission(argument.getPermission());
+                    }
+                }
+                if(perm != null)
+                {
+                    perm.recalculatePermissibles();
+                }
+            }
 			arguments.put(argument.getArgumentName().toLowerCase(), argument);
 			recalcItemMenu();
 		}

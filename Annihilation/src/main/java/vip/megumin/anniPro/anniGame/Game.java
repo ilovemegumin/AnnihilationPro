@@ -13,6 +13,7 @@ import org.bukkit.World.Environment;
 import vip.megumin.anniPro.anniEvents.AnniEvent;
 import vip.megumin.anniPro.anniEvents.GameEndEvent;
 import vip.megumin.anniPro.anniEvents.GameStartEvent;
+import vip.megumin.anniPro.announcementBar.AnnounceBar;
 import vip.megumin.anniPro.anniMap.GameMap;
 import vip.megumin.anniPro.anniMap.LobbyMap;
 import vip.megumin.anniPro.main.AnnihilationMain;
@@ -70,13 +71,32 @@ public class Game
 			
 			if ((files != null) && (files.length == 1))
 			{
-				try
+		try
+		{
+			String path = worldFolder.getPath();
+			if(path.contains("plugins"))
+				path = path.substring(path.indexOf("plugins"));
+			path = path.replace('\\', '/');
+
+			World existing = Bukkit.getWorld(path);
+			if(existing != null)
+			{
+				if(GameMap != null && !existing.getName().equals(GameMap.getWorldName()))
 				{
-					
-					String path = worldFolder.getPath();
-					if(path.contains("plugins"))
-						path = path.substring(path.indexOf("plugins"));
-					WorldCreator cr = new WorldCreator(path);
+					GameMap.unLoadMap();
+					GameMap = null;
+				}
+				existing.setAutoSave(false);
+				existing.setGameRuleValue("doMobSpawning", "false");
+				existing.setGameRuleValue("doFireTick", "false");
+				Game.GameMap = new GameMap(existing.getName(),worldFolder);
+				GameMap.registerListeners(AnnihilationMain.getInstance());
+				Game.worldNames.put(worldFolder.getName().toLowerCase(), existing.getName());
+				Game.niceNames.put(existing.getName().toLowerCase(),worldFolder.getName());
+				return true;
+			}
+
+			WorldCreator cr = new WorldCreator(path);
 					cr.environment(Environment.NORMAL);
 					World mapWorld = Bukkit.createWorld(cr);
 					if(mapWorld != null)
@@ -159,9 +179,11 @@ public class Game
 		if(!GameRunning)
 			return false;
 		GameRunning = false;
+		AnnounceBar.getInstance().cancelCountdown();
 		if(GameMap != null)
 		{
 			GameMap.setCanDamageNexus(false);
+			GameMap.setPhase(0);
 		}
 		return true;
 	}

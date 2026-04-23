@@ -52,10 +52,12 @@ public final class GameMap extends AnniMap implements Listener
 	private boolean canDamageNexus;
 	private int damageMultiplier;
 	private AutoRestarter restarter = null;
-	
+	private final File mapDirectory;
+
 	public GameMap(String worldName, File mapDirectory)
 	{
 		super(worldName, new File(mapDirectory,"AnniMapConfig.yml"));
+		this.mapDirectory = mapDirectory;
 		if(GameVars.getAutoRestart())
 			restarter = new AutoRestarter(AnnihilationMain.getInstance(),GameVars.getPlayersToRestart(),GameVars.getCountdownToRestart());
 	}
@@ -173,12 +175,22 @@ public final class GameMap extends AnniMap implements Listener
 	
 	public void backUpWorld()
 	{
-		super.getWorld().save();
+		World w = super.getWorld();
+		if(w == null) return;
+		w.save();
 	}
-	
+
 	public void backupConfig()
 	{
 		super.saveToConfig();
+	}
+
+	public void backupWorldToDisk()
+	{
+		World w = super.getWorld();
+		if(w == null) return;
+		w.save();
+		vip.megumin.anniPro.world.WorldBackupRestorer.backupWorldDirectory(mapDirectory);
 	}
 
 	@Override
@@ -186,24 +198,23 @@ public final class GameMap extends AnniMap implements Listener
 	{
 		if(section != null)
 		{
-			blocks.saveToConfig(section.createSection("RegeneratingBlocks"));
-			section.set("PhaseTime", this.PhaseTime);
-			int counter = 1;
-			ConfigurationSection enderFurnaces = section.createSection("EnderFurnaces");
-			for(FacingObject obj : this.enderFurnaces.values())
-			{
-				obj.saveToConfig(enderFurnaces.createSection(""+counter	));
-				counter++;
-			}
-			counter=1;
-			ConfigurationSection diamonds = section.createSection("DiamondLocations");
-			for(Loc loc : this.diamondLocs)
-			{
-				loc.saveToConfig(diamonds.createSection(""+counter));
-				counter++;
-			}
-			counter=1;
-			blocks.saveToConfig(section.createSection("RegeneratingBlocks"));
+		blocks.saveToConfig(section.createSection("RegeneratingBlocks"));
+		section.set("PhaseTime", this.PhaseTime);
+		int counter = 1;
+		ConfigurationSection enderFurnaces = section.createSection("EnderFurnaces");
+		for(FacingObject obj : this.enderFurnaces.values())
+		{
+			obj.saveToConfig(enderFurnaces.createSection(""+counter ));
+			counter++;
+		}
+		counter=1;
+		ConfigurationSection diamonds = section.createSection("DiamondLocations");
+		for(Loc loc : this.diamondLocs)
+		{
+			loc.saveToConfig(diamonds.createSection(""+counter));
+			counter++;
+		}
+		counter=1;
 			ConfigurationSection teams = section.createSection("Teams");
 			for(AnniTeam team : AnniTeam.Teams)
 			{

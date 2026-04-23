@@ -2,8 +2,6 @@ package vip.megumin.anniPro.anniGame;
 
 import java.awt.image.BufferedImage;
 
-import javax.imageio.ImageIO;
-
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
@@ -21,9 +19,9 @@ import vip.megumin.imagetomsg.ImageChar;
 import vip.megumin.imagetomsg.ImageMessage;
 import vip.megumin.anniPro.anniEvents.AnniEvent;
 import vip.megumin.anniPro.anniEvents.NexusHitEvent;
-import vip.megumin.anniPro.main.AnnihilationMain;
 import vip.megumin.anniPro.main.Lang;
 import vip.megumin.anniPro.utils.Loc;
+import vip.megumin.anniPro.utils.ResourceImages;
 import vip.megumin.anniPro.voting.ScoreboardAPI;
 
 public class Nexus implements Listener
@@ -107,20 +105,26 @@ public class Nexus implements Listener
 									w.getBlockAt(loc).setType(Material.BEDROCK);
 									try
 									{
-										BufferedImage image = ImageIO.read(AnnihilationMain.getInstance().getResource("Images/"+Team.getName()+"Team.png"));
-										String[] lore = new String[]
+										BufferedImage image = ResourceImages.read(Team.getName()+"Team.png");
+										if(image != null)
 										{
-											"",
-											"",
-											"",
-											"",
-											Lang.TEAMDESTROYED.toStringReplacement(Team.getExternalColoredName()),
-										};
-										ImageMessage message =  new ImageMessage(image, 10, ImageChar.MEDIUM_SHADE.getChar()).appendText(lore);
+											String[] lore = new String[]
+											{
+												"",
+												"",
+												"",
+												"",
+												Lang.TEAMDESTROYED.toStringReplacement(Team.getExternalColoredName()),
+											};
+											ImageMessage message =  new ImageMessage(image, 10, ImageChar.MEDIUM_SHADE.getChar()).appendText(lore);
+											for(Player pl : Bukkit.getOnlinePlayers())
+											{
+												message.sendToPlayer(pl);
+											}
+										}
 										for(Player pl : Bukkit.getOnlinePlayers())
 										{
 											pl.getWorld().playSound(pl.getLocation(), Sound.EXPLODE, 1F, .8F);
-											message.sendToPlayer(pl);
 										}
 									}
 									catch(Throwable t)

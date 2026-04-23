@@ -283,24 +283,24 @@ public class AnnihilationMain extends JavaPlugin implements Listener
 					{
 						GameMap map = Game.getGameMap();
 						String name = map.getNiceWorldName();
-						if(args[0].equalsIgnoreCase("config"))
-						{
-							map.saveToConfig();
-							map.backupConfig();
-							sender.sendMessage(ChatColor.GREEN+"Saved "+name+" config");
-						}
-						else if(args[0].equalsIgnoreCase("world"))
-						{
-							Game.getGameMap().backUpWorld();
-							sender.sendMessage(ChatColor.GREEN+"Saved "+name+" world");
-						}
-						else if(args[0].equalsIgnoreCase("both") || args[0].equalsIgnoreCase("all"))
-						{
-							map.saveToConfig();
-							Game.getGameMap().backupConfig();
-							Game.getGameMap().backUpWorld();		
-							sender.sendMessage(ChatColor.GREEN+"Saved "+name+" config and world");
-						}
+				if(args[0].equalsIgnoreCase("config"))
+				{
+					map.saveToConfig();
+					map.backupConfig();
+					sender.sendMessage(ChatColor.GREEN+"Saved "+name+" config");
+				}
+				else if(args[0].equalsIgnoreCase("world"))
+				{
+					Game.getGameMap().backupWorldToDisk();
+					sender.sendMessage(ChatColor.GREEN+"Saved "+name+" world");
+				}
+				else if(args[0].equalsIgnoreCase("both") || args[0].equalsIgnoreCase("all"))
+				{
+					map.saveToConfig();
+					Game.getGameMap().backupConfig();
+					Game.getGameMap().backupWorldToDisk();
+					sender.sendMessage(ChatColor.GREEN+"Saved "+name+" config and world");
+				}
 					}
 					else sender.sendMessage(ChatColor.RED+"You do not have a game map loaded!");
 				}
@@ -483,6 +483,8 @@ public class AnnihilationMain extends JavaPlugin implements Listener
 	@EventHandler
 	public void onGameEnd(GameEndEvent event)
 	{
+		AnnounceBar.getInstance().cancelCountdown();
+
 		GameMap map = Game.getGameMap();
 		map.setPhase(0);
 		map.setCanDamageNexus(false);
@@ -525,6 +527,10 @@ public class AnnihilationMain extends JavaPlugin implements Listener
 		if(Game.LobbyMap != null)
 		{
 			Game.LobbyMap.saveToConfig();
+		}
+		if(Game.getGameMap() != null)
+		{
+			Game.getGameMap().saveToConfig();
 		}
 	}
 	
