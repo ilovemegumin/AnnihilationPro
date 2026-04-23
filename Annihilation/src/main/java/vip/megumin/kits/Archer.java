@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.enchantments.Enchantment;
@@ -18,6 +19,7 @@ import org.bukkit.inventory.ShapelessRecipe;
 import org.bukkit.projectiles.ProjectileSource;
 
 import vip.megumin.anniPro.anniGame.AnniPlayer;
+import vip.megumin.anniPro.kits.KitUtils;
 import vip.megumin.anniPro.kits.Loadout;
 import vip.megumin.base.ConfigurableKit;
 
@@ -78,8 +80,12 @@ public class Archer extends ConfigurableKit
 	@Override
 	protected Loadout getFinalLoadout()
 	{
-		return new Loadout().addWoodSword().addWoodPick().addWoodAxe().addWoodShovel().addSoulboundEnchantedItem(new ItemStack(Material.BOW),Enchantment.ARROW_DAMAGE, 1)
-				.addSoulboundItem(new ItemStack(Material.ARROW,16)).addHealthPotion1();
+		ItemStack bow = KitUtils.addSoulbound(new ItemStack(Material.BOW));
+		KitUtils.addEnchant(bow, Enchantment.ARROW_KNOCKBACK, 1);
+		KitUtils.addEnchant(bow, Enchantment.ARROW_INFINITE, 1);
+		ItemStack arrow = KitUtils.setName(new ItemStack(Material.ARROW), ChatColor.AQUA+"Arrow of Infinity");
+		return new Loadout().addWoodSword().addWoodPick().addWoodAxe().addWoodShovel().addItem(bow)
+				.addSoulboundItem(arrow).addHealthPotion1();
 	}
 
 	@Override

@@ -7,12 +7,10 @@ import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
-import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 import vip.megumin.anniPro.anniGame.AnniPlayer;
 import vip.megumin.anniPro.kits.KitUtils;
@@ -32,6 +30,8 @@ public class Thor extends SpecialItemKit
 	protected ItemStack specialItem()
 	{
 		ItemStack hammer  = KitUtils.addSoulbound(new ItemStack(Material.GOLD_AXE));			
+		KitUtils.addEnchant(hammer, org.bukkit.enchantments.Enchantment.DURABILITY, 10);
+		KitUtils.addEnchant(hammer, org.bukkit.enchantments.Enchantment.KNOCKBACK, 1);
 		ItemMeta meta = hammer.getItemMeta();
 		meta.setDisplayName(getSpecialItemName()+" "+ChatColor.GREEN+"READY");
 		hammer.setItemMeta(meta);
@@ -59,39 +59,28 @@ public class Thor extends SpecialItemKit
 	@Override
 	protected boolean performSpecialAction(Player player, AnniPlayer p)
 	{
-		player.getWorld().strikeLightning(player.getLocation());
-		return true;
-	}
-	
-	@EventHandler(priority= EventPriority.NORMAL)
-	public void checkStrike(EntityDamageEvent event)
-	{
-		if(event.getEntityType() == EntityType.PLAYER && event.getCause() == DamageCause.LIGHTNING)
+		if(p.getTeam() == null)
+			return false;
+		for(org.bukkit.entity.Entity entity : player.getNearbyEntities(10, 10, 10))
 		{
-			AnniPlayer player = AnniPlayer.getPlayer(event.getEntity().getUniqueId());
-			if(player != null && !player.getKit().equals(this))
+			if(entity.getType() == EntityType.PLAYER)
 			{
-				Object obj = player.getData("LH");
-				if(obj != null)
+				AnniPlayer target = AnniPlayer.getPlayer(entity.getUniqueId());
+				if(target != null && target.getTeam() != null && !target.getTeam().equals(p.getTeam()))
 				{
-					Long l = (Long)obj;
-					if(System.currentTimeMillis()-l <= 30000)
-					{
-						event.setCancelled(true);
-						player.setData("LH", null);
-						return;
-					}
+					player.getWorld().strikeLightningEffect(entity.getLocation());
+					((Player)entity).damage(5.0, player);
 				}
-				event.setDamage(4);
-				player.setData("LH", System.currentTimeMillis());
 			}
 		}
+		player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 400, 0));
+		return true;
 	}
 
 	@Override
 	protected long getDelayLength()
 	{
-		return 120000;
+		return 40000;
 	}
 
 	@Override
@@ -135,7 +124,7 @@ public class Thor extends SpecialItemKit
 	@Override
 	protected Loadout getFinalLoadout()
 	{
-		return new Loadout().addStoneSword().addWoodPick().addWoodAxe().addItem(super.getSpecialItem()).addNavCompass().finalizeLoadout();
+		return new Loadout().addWoodSword().addWoodPick().addWoodAxe().addItem(super.getSpecialItem());
 	}
 
 	@Override

@@ -99,13 +99,11 @@ public class XPSystem
 		{
 			String query;
 			if (database instanceof SQLiteDatabase) {
-				// SQLite syntax for upsert
-				query = "INSERT INTO tbl_player_xp (ID, XP) VALUES ('"+playerID.toString()+"', "+XP+") "
-				        + "ON CONFLICT(ID) DO UPDATE SET XP=XP-excluded.XP;";
+				query = "INSERT INTO tbl_player_xp (ID, XP) VALUES ('"+playerID.toString()+"', 0) "
+				        + "ON CONFLICT(ID) DO UPDATE SET XP=MAX(XP-"+XP+",0);";
 			} else {
-				// MySQL syntax
-				query = "INSERT INTO tbl_player_xp (ID, XP) VALUES ('"+playerID.toString()+"', "+XP+") "
-				        + "ON DUPLICATE KEY UPDATE XP=XP-VALUES(XP);";
+				query = "INSERT INTO tbl_player_xp (ID, XP) VALUES ('"+playerID.toString()+"', 0) "
+				        + "ON DUPLICATE KEY UPDATE XP=GREATEST(XP-"+XP+",0);";
 			}
 			database.addNewAsyncLogQuery(new AsyncLogQuery()
 			{
@@ -148,7 +146,7 @@ public class XPSystem
 			public String getQuery()
 			{
 
-				return "DELETE FROM tbl_player_kits WHERE ID='"+id.toString()+"' AND Kit='"+kit.getName()+"';";
+				return "DELETE FROM tbl_player_kits WHERE ID='"+id.toString()+"' AND Kit='"+escapeSql(kit.getName())+"';";
 			}});
 	}
 	
@@ -169,7 +167,12 @@ public class XPSystem
 			@Override
 			public String getQuery()
 			{
-				return "INSERT INTO tbl_player_kits (ID,Kit) VALUES ('"+id.toString()+"','"+kit.getName()+"');";
+				return "INSERT INTO tbl_player_kits (ID,Kit) VALUES ('"+id.toString()+"','"+escapeSql(kit.getName())+"');";
 			}});
+	}
+
+	private static String escapeSql(String value)
+	{
+		return value == null ? "" : value.replace("'", "''");
 	}
 }

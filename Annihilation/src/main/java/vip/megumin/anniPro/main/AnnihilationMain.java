@@ -39,6 +39,7 @@ import vip.megumin.anniPro.itemMenus.MenuItem;
 import vip.megumin.anniPro.kits.CustomItem;
 import vip.megumin.anniPro.kits.KitLoading;
 import vip.megumin.anniPro.mapBuilder.MapBuilder;
+import vip.megumin.anniPro.security.Log4jExploitFix;
 import vip.megumin.anniPro.utils.InvisibilityListeners;
 import vip.megumin.anniPro.voting.AutoStarter;
 import vip.megumin.anniPro.voting.ConfigManager;
@@ -58,6 +59,12 @@ public class AnnihilationMain extends JavaPlugin implements Listener
 	
 	
 	@Override
+	public void onLoad()
+	{
+		System.setProperty("log4j2.formatMsgNoLookups", "true");
+	}
+	
+	@Override
 	public void onEnable()
 	{
 		instance = this;
@@ -69,6 +76,8 @@ public class AnnihilationMain extends JavaPlugin implements Listener
         DamageControl.register(this);
 		
 		ConfigManager.load(this); //Enables the loading of the main config file, this is now different from the lobby config file
+		if(ConfigManager.getConfig().getBoolean("Log4jExploitFix.Enabled", true))
+			new Log4jExploitFix(this, ConfigManager.getConfig().getBoolean("Log4jExploitFix.Log-Attempts", true));
 		
 		loadMainValues(); //This will load values from the main config file and load the lobby from the lobby config file
 		

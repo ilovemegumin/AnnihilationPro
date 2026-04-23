@@ -10,6 +10,7 @@ import java.util.UUID;
 import vip.megumin.kits.Acrobat;
 import vip.megumin.kits.Archer;
 import vip.megumin.kits.Assassin;
+import vip.megumin.kits.AnniClassCatalog;
 import vip.megumin.kits.Berserker;
 import vip.megumin.kits.Defender;
 import vip.megumin.kits.Enchanter;
@@ -115,17 +116,25 @@ public class KitLoading implements Listener, CommandExecutor
 			try
 			{
 				Kit kit = kitClass.newInstance();
-				if (kit.Initialize())
-				{
-					Bukkit.getPluginManager().registerEvents(kit, plugin);
-					Kit.registerKit(kit);
-					Bukkit.getLogger().info("[Annihilation] --" + kit.getName());
-				}
+				registerKit(plugin, kit);
 			}
 			catch (InstantiationException | IllegalAccessException e)
 			{
 				throw new IllegalStateException("Unable to initialize kit: " + kitClass.getName(), e);
 			}
+		}
+
+		for(Kit kit : AnniClassCatalog.createMissingKits())
+			registerKit(plugin, kit);
+	}
+
+	private void registerKit(JavaPlugin plugin, Kit kit)
+	{
+		if (kit.Initialize())
+		{
+			Bukkit.getPluginManager().registerEvents(kit, plugin);
+			Kit.registerKit(kit);
+			Bukkit.getLogger().info("[Annihilation] --" + kit.getName());
 		}
 	}
 	

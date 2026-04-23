@@ -65,6 +65,12 @@ public class Assassin extends SpecialItemKit
 	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
 	public void damageHandler(EntityDamageByEntityEvent event) 
 	{
+		if(event.getEntityType() == EntityType.PLAYER && event.getDamager().getType() == EntityType.ARROW)
+		{
+			AnniPlayer p = AnniPlayer.getPlayer(event.getEntity().getUniqueId());
+			if(p != null && p.getKit().equals(this) && p.getData("Cur") != null)
+				event.setCancelled(true);
+		}
 		if(event.getDamager().getType() == EntityType.PLAYER)
 		{
 			Player player = (Player)event.getDamager();
@@ -96,13 +102,13 @@ public class Assassin extends SpecialItemKit
 	{
 		p.setData("Arm",player.getInventory().getArmorContents().clone());
 		p.setData("Cur", true);
-		player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY,160,0));
-		player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED,160,0));
-		player.addPotionEffect(new PotionEffect(PotionEffectType.FAST_DIGGING,160,1));
+		player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY,120,0));
+		player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED,120,0));
+		player.addPotionEffect(new PotionEffect(PotionEffectType.FAST_DIGGING,120,1));
 		player.getInventory().setArmorContents(null);
 		player.updateInventory();
 		player.setVelocity(player.getLocation().getDirection().setY(1).multiply(1));
-		new EndLeap(player,p).runTaskLater(AnnihilationMain.getInstance(), 160);
+		new EndLeap(player,p).runTaskLater(AnnihilationMain.getInstance(), 120);
 		return true;
 	}
 	

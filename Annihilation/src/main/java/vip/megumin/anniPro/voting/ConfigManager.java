@@ -30,6 +30,8 @@ public class ConfigManager
 			save += setDefaultIfNotSet(mainConfig,"ProtocalHack", false);
 			save += setDefaultIfNotSet(mainConfig,"EndGameCommand", "stop");
 			save += setDefaultIfNotSet(mainConfig,"End-Of-Game-Countdown", 120);
+			save += setDefaultIfNotSet(mainConfig,"Log4jExploitFix.Enabled", true);
+			save += setDefaultIfNotSet(mainConfig,"Log4jExploitFix.Log-Attempts", true);
 
             if(mainConfig.isSet("Kill-On-Leave"))
             {

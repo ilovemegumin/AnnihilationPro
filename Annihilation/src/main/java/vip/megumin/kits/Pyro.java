@@ -73,7 +73,17 @@ public class Pyro extends SpecialItemKit
 				{
 					AnniPlayer d = AnniPlayer.getPlayer(e.getUniqueId());
 					if(d != null && d.getTeam() != null && !d.getTeam().equals(p.getTeam()))
-						e.setFireTicks(40);
+					{
+						if(e.getFireTicks() > 0)
+							((Player)e).damage(4.0, player);
+						else
+							e.setFireTicks(120);
+					}
+					else if(d != null && d.getTeam() != null && d.getTeam().equals(p.getTeam()))
+					{
+						e.setFireTicks(0);
+						((Player)e).addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 200, 0));
+					}
 				}
 			}
 			player.sendMessage(ChatColor.DARK_RED+ChatColor.stripColor(getSpecialItemName()).toUpperCase()+"!");
@@ -151,7 +161,7 @@ public class Pyro extends SpecialItemKit
 			{
 				AnniPlayer p = AnniPlayer.getPlayer(((Player) shooter).getUniqueId());
 				if(p != null && p.getKit().equals(this))
-					event.getEntity().setFireTicks(999999);
+					event.getEntity().setFireTicks(400);
 			}
 		}
 	}
@@ -166,8 +176,8 @@ public class Pyro extends SpecialItemKit
 			AnniPlayer d = AnniPlayer.getPlayer(damager.getUniqueId());
 			if(d != null && d.getKit().equals(this))
 			{
-				if(rand.nextInt(100) < 37)
-					event.getEntity().setFireTicks(40);
+				if(rand.nextInt(100) < 25)
+					event.getEntity().setFireTicks(60);
 			}
 		}
 	}

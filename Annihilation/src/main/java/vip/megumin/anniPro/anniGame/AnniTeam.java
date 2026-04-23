@@ -10,6 +10,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.scoreboard.NameTagVisibility;
 import org.bukkit.scoreboard.Team;
 
 import vip.megumin.anniPro.main.AnnihilationMain;
@@ -89,6 +90,7 @@ public final class AnniTeam
 		scoreboardTeam = ScoreboardAPI.getScoreboard().registerNewTeam(name);
 		scoreboardTeam.setAllowFriendlyFire(false);
 		scoreboardTeam.setCanSeeFriendlyInvisibles(true);
+		scoreboardTeam.setNameTagVisibility(NameTagVisibility.HIDE_FOR_OTHER_TEAMS);
 		scoreboardTeam.setPrefix(this.getColor().toString());
 	}
 	

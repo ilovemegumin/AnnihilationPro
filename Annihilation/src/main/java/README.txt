@@ -6,7 +6,7 @@ Files:
 --This goes in the "plugins" folder
 --This is the main plugin required to run the Annihilation game mode
 
-"AnnihilationStarterKits.jar" (OPTIONAL, but RECOMMENDED)
+"AnnihilationStarterKits.jar" (Integrated)
 --This goes in the "plugins/Annihilation/Kits" folder
 --This provides the starting kits for the Annihilation game mode
 --Any addition kit packs should also be placed in the "plugins/Annihilation/Kits" folder
@@ -17,12 +17,12 @@ Files:
 --This goes in the "plugins" folder
 --This requires that you have the plugin "Vault" and an economy plugin on your server
 
-"AnnihilationXP.jar" (OPTIONAL)
+"AnnihilationXP.jar" (Integrated)
 --This goes in the "plugins" folder
 --This requires that you have a MySQL server
 --You must configure the MySQL server in the XPConfig file
 
-"AnnihilationWorldRestorer.jar" (OPTIONAL, but RECOMMENDED)
+"AnnihilationWorldRestorer.jar" (Integrated)
 --This goes in the "plugins" folder
 --This plugin restores the Annihilation worlds on the start of your server
 --This plugins works as follows:

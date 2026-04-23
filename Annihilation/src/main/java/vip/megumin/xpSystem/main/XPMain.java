@@ -20,10 +20,12 @@ import org.bukkit.permissions.PermissionDefault;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import vip.megumin.anniPro.anniGame.AnniPlayer;
+import vip.megumin.anniPro.kits.Kit;
 import vip.megumin.anniPro.main.AnniCommand;
 import vip.megumin.anniPro.main.AnnihilationMain;
 import vip.megumin.anniPro.utils.Perm;
 import vip.megumin.anniPro.voting.ConfigManager;
+import vip.megumin.kits.AnniClassCatalog;
 import vip.megumin.xpSystem.shop.Shop;
 
 public final class XPMain implements Listener
@@ -92,6 +94,11 @@ public final class XPMain implements Listener
         x += ConfigManager.setDefaultIfNotSet(shopSec, "Not-Enough-XP", "&cYou do not have enough XP to purchase this kit.");
         x += ConfigManager.setDefaultIfNotSet(shopSec, "Kit-Purchased", "&aKit %w purchased!");
         x += ConfigManager.setDefaultIfNotSet(shopSec, "No-Kits-To-Purchase", "&cNo kits left to purchase!");
+        ConfigurationSection kitPrices = shopSec.getConfigurationSection("Kits");
+        if(kitPrices == null)
+            kitPrices = shopSec.createSection("Kits");
+        for(Kit kit : Kit.getKits())
+            x += ConfigManager.setDefaultIfNotSet(kitPrices, kit.getName(), AnniClassCatalog.getDefaultPrice(kit.getName()));
 
         if (x > 0)
             saveConfig();
