@@ -46,16 +46,13 @@ public class Berserker extends ConfigurableKit
 	protected List<String> getDefaultDescription()
 	{
 		List<String> l = new ArrayList<String>();
-		addToList(l,new String[]
-			{
-				aqua+"You are the power.", 
-				"",
-				aqua+"Start each life with only",
-				aqua+"9 hearts of health, for",
-				aqua+"every kill you make you",
-				aqua+"gain a heart to a maximum",
-				aqua+"health of 13 hearts.",
-			});
+		addToList(l, aqua+"You are the power.",
+                "",
+                aqua+"Start each life with only",
+                aqua+"9 hearts of health, for",
+                aqua+"every kill you make you",
+                aqua+"gain a heart to a maximum",
+                aqua+"health of 13 hearts.");
 		return l;
 	}
 

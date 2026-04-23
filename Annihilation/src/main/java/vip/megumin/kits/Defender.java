@@ -53,18 +53,15 @@ public class Defender extends ConfigurableKit
 	protected List<String> getDefaultDescription() 
 	{
 		List<String> l = new ArrayList<String>();
-		addToList(l,new String[]
-				{
-					aqua+"You are the last line.",
-					"",
-					aqua+"While around the nexus",
-					aqua+"you gain the regeneration",
-					aqua+"buff and killing players",
-					aqua+"while in the vicinity",
-					aqua+"of the nexus rewards you",
-					aqua+"with extra experience",
-					aqua+"points.",
-				});
+		addToList(l, aqua+"You are the last line.",
+                "",
+                aqua+"While around the nexus",
+                aqua+"you gain the regeneration",
+                aqua+"buff and killing players",
+                aqua+"while in the vicinity",
+                aqua+"of the nexus rewards you",
+                aqua+"with extra experience",
+                aqua+"points.");
 		return l;
 	}
 	

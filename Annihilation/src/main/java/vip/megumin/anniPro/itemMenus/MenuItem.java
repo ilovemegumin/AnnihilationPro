@@ -5,6 +5,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -14,15 +15,14 @@ public class MenuItem
 {
 	private String displayName;
 	private ItemStack icon;
-	private List<String> lore;
+	private final List<String> lore;
 
 	public MenuItem(String displayName, ItemStack icon, String... lore)
 	{
 		this.displayName = displayName;
 		this.icon = icon;
 		this.lore = new ArrayList<String>();
-		for(String str : lore)
-			this.lore.add(str);
+        Collections.addAll(this.lore, lore);
 	}
 
 	/**

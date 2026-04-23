@@ -48,8 +48,7 @@ public class Succubus extends ConfigurableKit
 		if(stack != null && stack.hasItemMeta() && stack.getItemMeta().hasDisplayName())
 		{
 			String name = stack.getItemMeta().getDisplayName();
-			if(name.contains(this.sucItemName) && KitUtils.isSoulbound(stack))
-				return true;
+            return name.contains(this.sucItemName) && KitUtils.isSoulbound(stack);
 		}
 		return false;
 	}	
@@ -85,29 +84,26 @@ public class Succubus extends ConfigurableKit
 	protected List<String> getDefaultDescription()
 	{
 		List<String> l = new ArrayList<String>();
-		addToList(l,new String[]
-				{
-					aqua+"You are the hunter.",
-					"",
-					aqua+"Once every 2 minutes the",
-					aqua+"Succubus can attempt to",
-					aqua+"suck the remaining life",
-					aqua+"out of an enemy player.",
-					"",
-					aqua+"If the enemy player has",
-					aqua+"less than 40% health,",
-					aqua+"they are killed immediately",
-					aqua+"and the remaining health",
-					aqua+"is transferred to the",
-					aqua+"Succubus.",
-					"",
-					aqua+"However, if the enemy",
-					aqua+"player has more than 40%",
-					aqua+"health, the Succubus is",
-					aqua+"dealt the enemy player's",
-					aqua+"remaining health in true",
-					aqua+"damage.",
-				});
+		addToList(l, aqua+"You are the hunter.",
+                "",
+                aqua+"Once every 2 minutes the",
+                aqua+"Succubus can attempt to",
+                aqua+"suck the remaining life",
+                aqua+"out of an enemy player.",
+                "",
+                aqua+"If the enemy player has",
+                aqua+"less than 40% health,",
+                aqua+"they are killed immediately",
+                aqua+"and the remaining health",
+                aqua+"is transferred to the",
+                aqua+"Succubus.",
+                "",
+                aqua+"However, if the enemy",
+                aqua+"player has more than 40%",
+                aqua+"health, the Succubus is",
+                aqua+"dealt the enemy player's",
+                aqua+"remaining health in true",
+                aqua+"damage.");
 		return l;
 	}
 

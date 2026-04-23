@@ -26,7 +26,7 @@ import vip.megumin.anniPro.voting.ScoreboardAPI;
 
 public class StandardPhaseHandler implements Runnable
 {
-	private Map<Integer,ImageMessage> images;
+	private final Map<Integer,ImageMessage> images;
 	public StandardPhaseHandler()
 	{
 		images = new HashMap<Integer,ImageMessage>();

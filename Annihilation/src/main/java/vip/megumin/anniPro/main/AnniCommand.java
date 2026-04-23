@@ -29,7 +29,7 @@ public class AnniCommand
 	
 	public static void register(JavaPlugin plugin)
 	{
-		if(reigstered == false)
+		if(!reigstered)
 		{
 			reigstered = true;
 			arguments = new TreeMap<String,AnniArgument>();
@@ -166,8 +166,7 @@ public class AnniCommand
 			String[] r = new String[args.length-1];
 			if(r.length == 0)
 				return r;
-			for(int x = 1; x < args.length; x++)
-				r[x-1] = args[x];
+            System.arraycopy(args, 1, r, 0, args.length - 1);
 			return r;
 		}		
 	}

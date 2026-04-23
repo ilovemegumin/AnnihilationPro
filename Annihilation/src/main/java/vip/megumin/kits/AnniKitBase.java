@@ -1,11 +1,6 @@
 package vip.megumin.kits;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -44,8 +39,7 @@ public abstract class AnniKitBase extends ConfigurableKit
 		this.sourceUrl = sourceUrl;
 		this.description = description;
 		this.items = new ArrayList<KitItem>();
-		for(KitItem item : items)
-			this.items.add(item);
+        Collections.addAll(this.items, items);
 	}
 
 	@Override

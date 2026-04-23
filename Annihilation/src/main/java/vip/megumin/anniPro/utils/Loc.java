@@ -8,9 +8,12 @@ import java.util.Objects;
 
 public final class Loc
 {
-	private Number x,y,z;
-	private float pitch,yaw;
-	private String world;
+	private final Number x;
+    private final Number y;
+    private final Number z;
+	private final float pitch;
+    private final float yaw;
+	private final String world;
 	
 	public Loc(Location loc, boolean precise)
 	{

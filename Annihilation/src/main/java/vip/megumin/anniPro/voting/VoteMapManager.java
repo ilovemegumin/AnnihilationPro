@@ -157,7 +157,7 @@ public class VoteMapManager
 					{
 						event.getPlayer().performCommand("Vote "+str);
 						event.setWillClose(true);
-					}}, new ItemStack(Material.TRIPWIRE_HOOK), new String[]{});
+					}}, new ItemStack(Material.TRIPWIRE_HOOK));
 				menu.setItem(x, item);
 				x++;
 			}

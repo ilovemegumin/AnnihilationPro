@@ -10,12 +10,12 @@ import org.bukkit.inventory.ItemStack;
  */
 public class ItemClickEvent
 {
-	private Player player;
-	private ClickType clicktype;
+	private final Player player;
+	private final ClickType clicktype;
 	private boolean goBack = false;
 	private boolean close = false;
 	private boolean update = false;
-	private ItemStack stack;
+	private final ItemStack stack;
 
 	public ItemClickEvent(Player player,ItemStack stack, ClickType type)
 	{

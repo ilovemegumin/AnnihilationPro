@@ -9,8 +9,8 @@ import vip.megumin.anniPro.utils.Loc;
 public final class AnniSign
 {
 	private final FacingObject obj;
-	private boolean signPost;
-	private SignType type;
+	private final boolean signPost;
+	private final SignType type;
 	
 	public AnniSign(FacingObject obj, boolean signPost, SignType type)
 	{

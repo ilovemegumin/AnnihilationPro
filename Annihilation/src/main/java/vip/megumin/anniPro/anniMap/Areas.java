@@ -112,8 +112,7 @@ public final class Areas implements Iterable<Area>, Listener
 			if(a != null && !a.getAllowPVP())
 			{
 				e.setCancelled(true);
-				return;
-			}
+            }
 		}
 	}
 

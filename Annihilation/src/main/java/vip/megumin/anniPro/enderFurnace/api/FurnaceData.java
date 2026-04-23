@@ -5,10 +5,10 @@ import org.bukkit.inventory.ItemStack;
 
 public abstract class FurnaceData
 {
-    private ItemStack[] items;
-    private int burnTime;
-    private int ticksForCurrentFuel;
-    private int cookTime;
+    private final ItemStack[] items;
+    private final int burnTime;
+    private final int ticksForCurrentFuel;
+    private final int cookTime;
 
 
     /**

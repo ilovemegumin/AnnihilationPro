@@ -15,7 +15,7 @@ import vip.megumin.anniPro.utils.Util;
 public abstract class AnniMap
 {	
 	private String world;
-	private Areas areas;
+	private final Areas areas;
 	private Signs signs;
 	
 	protected final File configFile;

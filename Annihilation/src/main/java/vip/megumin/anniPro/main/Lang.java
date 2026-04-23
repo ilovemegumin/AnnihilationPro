@@ -60,8 +60,8 @@ public enum Lang
 	PHASE4MESSAGE("phase-4-message",ChatColor.GOLD+"Blaze Powder "+ChatColor.GRAY+"is now available"+"%n"+ChatColor.GRAY+"from the brewing shop"),
 	PHASE5MESSAGE("phase-5-message",ChatColor.GOLD+"Extra damage "+ChatColor.GRAY+"is inflicted on the "+ChatColor.GOLD+"nexus"+"%n"+ChatColor.GRAY+"when breaking it"+"%n"+ChatColor.RED+"x2 "+ChatColor.GOLD+"extra damage");
  
-    private String path;
-    private String def;
+    private final String path;
+    private final String def;
     private static YamlConfiguration LANG;
  
 	/**

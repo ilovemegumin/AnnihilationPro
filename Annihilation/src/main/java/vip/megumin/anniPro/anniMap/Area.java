@@ -10,9 +10,9 @@ public class Area
     private boolean allowPVP = true;
     private boolean allowDamage = true;
     private boolean allowHunger = true;
-    private Loc corner1;
-    private Loc corner2;
-    private String name;
+    private final Loc corner1;
+    private final Loc corner2;
+    private final String name;
 
     public Area(Loc one, Loc two, String name)
     {

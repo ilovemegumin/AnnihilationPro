@@ -22,7 +22,7 @@ public class RespawnHandler implements Listener
         }
     }
 
-    private RespawnPacket packet;
+    private final RespawnPacket packet;
     private RespawnHandler()
     {
         packet = new SpigotRespawnPacket();

@@ -71,18 +71,15 @@ public class Acrobat extends ConfigurableKit
 	protected List<String> getDefaultDescription()
 	{
 		List<String> l = new ArrayList<String>();
-		addToList(l,new String[]
-				{
-					aqua+"You are the bird.", 
-					"",
-					aqua+"Soar through the air with",
-					aqua+"grace. You are immune",
-					aqua+"to fall damage.",
-					"",
-					aqua+"Your stamina allows you",
-					aqua+"to sprint longer than",
-					aqua+"others.",
-				});
+		addToList(l, aqua+"You are the bird.",
+                "",
+                aqua+"Soar through the air with",
+                aqua+"grace. You are immune",
+                aqua+"to fall damage.",
+                "",
+                aqua+"Your stamina allows you",
+                aqua+"to sprint longer than",
+                aqua+"others.");
 		return l;
 	}
 
@@ -164,8 +161,7 @@ public class Acrobat extends ConfigurableKit
 						{
 
 							player.setAllowFlight(true);
-							return;
-						}
+                        }
 					}
 				}
 			}

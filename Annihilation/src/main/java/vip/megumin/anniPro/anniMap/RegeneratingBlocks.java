@@ -34,8 +34,8 @@ import vip.megumin.anniPro.mapBuilder.FutureBlockReplace;
 
 public final class RegeneratingBlocks implements Listener
 {
-	private Map<Material,Map<Integer,RegeneratingBlock>> blocks;
-	private String world;
+	private final Map<Material,Map<Integer,RegeneratingBlock>> blocks;
+	private final String world;
 	private final ScheduledExecutorService executor;
 	private final Random rand;
 	public RegeneratingBlocks(String world)
@@ -143,7 +143,7 @@ public final class RegeneratingBlocks implements Listener
 			{
 				RegeneratingBlock b = getRegeneratingBlock(block.getType(),-1); //switched it up tp try the global data value (-1) first
 				if(b == null)
-					b = getRegeneratingBlock(block.getType(),(Integer)((int)block.getData()));
+					b = getRegeneratingBlock(block.getType(), (int)block.getData());
 				
 				
 				if(b != null)
@@ -272,8 +272,7 @@ public final class RegeneratingBlocks implements Listener
 							}
 							executor.schedule(new FutureBlockReplace(event.getBlock(), b.CobbleReplace), b.Time, b.Unit);
 						}
-						return;
-					}
+                    }
 				}
 			}
 		}

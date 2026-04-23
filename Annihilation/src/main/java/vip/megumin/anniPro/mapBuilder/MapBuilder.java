@@ -264,7 +264,7 @@ public class MapBuilder implements Listener
 							if(b != null)
 							{
 								FacingObject obj = new FacingObject(getCardinalDirection(player).getOppositeFace(),new Loc(b.getLocation(),false));
-								AnniSign sign = new AnniSign(obj,face == BlockFace.UP ? true : (face == BlockFace.DOWN ? true : false),SignType.newTeamSign(team));
+								AnniSign sign = new AnniSign(obj, face == BlockFace.UP || (face == BlockFace.DOWN),SignType.newTeamSign(team));
 								if(Game.getGameMap() != null && player.getWorld().getName().equals(Game.getGameMap().getWorldName()))
 								{
 									if(Game.getGameMap().getSigns().addSign(sign))
@@ -355,7 +355,7 @@ public class MapBuilder implements Listener
 								{
 									int time = Integer.parseInt(args[0]);
 									Game.getGameMap().setPhaseTime((int) TimeUnit.SECONDS.convert(time, unit));
-									event.getPlayer().sendMessage(ChatColor.LIGHT_PURPLE+"Phases will now run for "+ChatColor.GOLD+time+" "+unit.toString()+ChatColor.LIGHT_PURPLE+".");
+									event.getPlayer().sendMessage(ChatColor.LIGHT_PURPLE+"Phases will now run for "+ChatColor.GOLD+time+" "+ unit +ChatColor.LIGHT_PURPLE+".");
 									return true;
 								}
 							}
@@ -701,7 +701,7 @@ public class MapBuilder implements Listener
 						if(b != null)
 						{
 							AnniSign sign = new AnniSign(new FacingObject(getCardinalDirection(player).getOppositeFace(), new Loc(b.getLocation(),false)),
-									face == BlockFace.UP ? true : (face == BlockFace.DOWN ? true : false), SignType.Brewing);
+                                    face == BlockFace.UP || (face == BlockFace.DOWN), SignType.Brewing);
 							map.getSigns().addSign(sign);
 						}
 					}
@@ -721,7 +721,7 @@ public class MapBuilder implements Listener
 						if(b != null)
 						{
 							AnniSign sign = new AnniSign(new FacingObject(getCardinalDirection(player).getOppositeFace(), new Loc(b.getLocation(),false)),
-									face == BlockFace.UP ? true : (face == BlockFace.DOWN ? true : false), SignType.Weapon);
+                                    face == BlockFace.UP || (face == BlockFace.DOWN), SignType.Weapon);
 							map.getSigns().addSign(sign);
 						}
 					}

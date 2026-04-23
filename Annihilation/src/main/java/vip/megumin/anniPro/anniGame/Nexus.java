@@ -82,7 +82,7 @@ public class Nexus implements Listener
 						AnniPlayer p = AnniPlayer.getPlayer(event.getPlayer().getUniqueId());
 						if(p != null && p.getTeam() != null && !p.getTeam().equals(Team))	
 						{
-							NexusHitEvent e = new NexusHitEvent(p,this,1*Game.getGameMap().getDamageMultiplier());
+							NexusHitEvent e = new NexusHitEvent(p,this, Game.getGameMap().getDamageMultiplier());
 							AnniEvent.callEvent(e);
 							if(!e.isCancelled() && e.getDamage() > 0)
 							{

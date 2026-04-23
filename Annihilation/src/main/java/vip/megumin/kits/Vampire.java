@@ -50,15 +50,12 @@ public class Vampire extends ConfigurableKit
 	protected List<String> getDefaultDescription()
 	{
 		List<String> l = new ArrayList<String>();
-		addToList(l,new String[]
-			{
-				aqua+"You are the fear.",
-				"",
-				aqua+"Every hit you land has",
-				aqua+"a 30% chance to drain",
-				aqua+"health from your victim",
-				aqua+"and heal you.",
-			});
+		addToList(l, aqua+"You are the fear.",
+                "",
+                aqua+"Every hit you land has",
+                aqua+"a 30% chance to drain",
+                aqua+"health from your victim",
+                aqua+"and heal you.");
 		return l;
 	}
 	

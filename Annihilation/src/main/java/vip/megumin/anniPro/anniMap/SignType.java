@@ -13,8 +13,8 @@ public final class SignType
 		return new SignType((byte)3,team);
 	}
 	
-	private byte ID;
-	private AnniTeam team;
+	private final byte ID;
+	private final AnniTeam team;
 	private SignType(byte ID, AnniTeam team)
 	{
 		this.ID = ID;
@@ -45,10 +45,8 @@ public final class SignType
 		if (getClass() != obj.getClass())
 			return false;
 		SignType other = (SignType) obj;
-		if (ID != other.ID)
-			return false;
-		return true;
-	}
+        return ID == other.ID;
+    }
 	
 	
 }

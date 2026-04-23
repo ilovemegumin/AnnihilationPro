@@ -118,7 +118,7 @@ class Listeners implements Listener
 
     private void sendMoneyMessage(Player player, double money)
     {
-        player.sendMessage(ChatColor.translateAlternateColorCodes('&', message.replace("%#", "" + format.format(money))));
+        player.sendMessage(ChatColor.translateAlternateColorCodes('&', message.replace("%#", format.format(money))));
     }
 
 

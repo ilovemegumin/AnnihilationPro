@@ -103,11 +103,11 @@ public class GameListeners implements Listener
 			else if(event.getMessage().startsWith("!"))
 			{
 				event.setMessage(event.getMessage().substring(1));
-				event.setFormat(g+"(All) ["+p.getTeam().getColor()+p.getTeam().toString()+g+"] %s"+ChatColor.WHITE+": %s");
+				event.setFormat(g+"(All) ["+p.getTeam().getColor()+ p.getTeam() +g+"] %s"+ChatColor.WHITE+": %s");
 			}
 			else
 			{
-				event.setFormat(g+"(Team) ["+p.getTeam().getColor()+p.getTeam().toString()+g+"] %s"+ChatColor.WHITE+": %s");
+				event.setFormat(g+"(Team) ["+p.getTeam().getColor()+ p.getTeam() +g+"] %s"+ChatColor.WHITE+": %s");
 				event.getRecipients().clear();
 				for(AnniPlayer pl : p.getTeam().getPlayers())
 					if(pl.isOnline())
@@ -135,12 +135,12 @@ public class GameListeners implements Listener
 					{
 						PlayerKilledEvent e = new PlayerKilledEvent(k,p);
 						
-						message = p.getTeam().getColor()+player.getName()+"("+p.getKit().getName()+") "+Lang.DEATHPHRASE.toString()+" "+k.getTeam().getColor()+killer.getName()+"("+k.getKit().getName()+")";
+						message = p.getTeam().getColor()+player.getName()+"("+p.getKit().getName()+") "+ Lang.DEATHPHRASE +" "+k.getTeam().getColor()+killer.getName()+"("+k.getKit().getName()+")";
 						
 						if(e.getAttributes().contains(KillAttribute.REMEMBRANCE))
-							message += " "+Lang.REMEMBRANCE.toString();
+							message += " "+ Lang.REMEMBRANCE;
 						else if(e.getAttributes().contains(KillAttribute.NEXUSDEFENSE))
-							message += " "+Lang.NEXUSKILL.toString();
+							message += " "+ Lang.NEXUSKILL;
 							
 						AnniEvent.callEvent(e);
 						if(!e.shouldDropXP())

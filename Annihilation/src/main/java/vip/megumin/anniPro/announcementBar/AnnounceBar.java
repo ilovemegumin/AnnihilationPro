@@ -18,7 +18,7 @@ public class AnnounceBar
         return instance;
     }
 
-    private Bar bar;
+    private final Bar bar;
 
     private Announcement announcement;
 
@@ -51,7 +51,7 @@ public class AnnounceBar
     public void countDown(Announcement announcement)
     {
         this.announcement = announcement;
-        this.timeLeft = announcement.getTime()*1000;
+        this.timeLeft = announcement.getTime()* 1000L;
         this.lastUpdate = System.currentTimeMillis();
         String mess = ChatColor.translateAlternateColorCodes('&', announcement.getMessage()).replace("{#}", format(timeLeft));
         for(Player pl : Bukkit.getOnlinePlayers())

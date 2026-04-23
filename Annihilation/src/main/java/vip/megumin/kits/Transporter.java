@@ -101,19 +101,16 @@ public class Transporter extends ConfigurableKit
 	protected List<String> getDefaultDescription()
 	{
 		List<String> l = new ArrayList<String>();
-		addToList(l,new String[]
-			{
-				aqua+"You are the snake.", 
-				"",
-				aqua+"Link two parts of the",
-				aqua+"battlefield with portals",
-				aqua+"that your team can use",
-				aqua+"to get the one up on the",
-				aqua+"enemy.",
-				"",
-				aqua+"Your portals are removed",
-				aqua+"when you die.",
-			});
+		addToList(l, aqua+"You are the snake.",
+                "",
+                aqua+"Link two parts of the",
+                aqua+"battlefield with portals",
+                aqua+"that your team can use",
+                aqua+"to get the one up on the",
+                aqua+"enemy.",
+                "",
+                aqua+"Your portals are removed",
+                aqua+"when you die.");
 		return l;
 	}
 
@@ -137,8 +134,7 @@ public class Transporter extends ConfigurableKit
 		if(stack != null && stack.hasItemMeta() && stack.getItemMeta().hasDisplayName())
 		{
 			String name = stack.getItemMeta().getDisplayName();
-			if(name.contains(this.transporterItemName) && KitUtils.isSoulbound(stack))
-				return true;
+            return name.contains(this.transporterItemName) && KitUtils.isSoulbound(stack);
 		}
 		return false;
 	}
@@ -265,8 +261,7 @@ public class Transporter extends ConfigurableKit
 							if(owner.equals(event.getPlayer().getUniqueId()))
 							{
 								tele.clear();
-								return;
-							}
+                            }
 							else if(p.getTeam() != tele.getOwner().getTeam())
 							{
 								tele.clear();
@@ -364,7 +359,7 @@ public class Transporter extends ConfigurableKit
 
 class Teleporter
 {
-	private AnniPlayer owner;
+	private final AnniPlayer owner;
 	private Loc loc1;
 	private BlockState state1;
 	private Loc loc2;

@@ -462,7 +462,7 @@ public final class GameMap extends AnniMap implements Listener
 	
 	private class UnplaceableBlock
 	{
-		private ArrayList<Byte> dataVals;
+		private final ArrayList<Byte> dataVals;
 		public UnplaceableBlock()
 		{
 			dataVals = new ArrayList<Byte>();

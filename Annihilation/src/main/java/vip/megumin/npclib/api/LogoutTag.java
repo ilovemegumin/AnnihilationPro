@@ -25,7 +25,7 @@ public class LogoutTag extends BukkitRunnable
     private NPC npc;
     private UUID player;
 
-    private String teamName;
+    private final String teamName;
 
     public LogoutTag(Player player)
     {
@@ -39,7 +39,7 @@ public class LogoutTag extends BukkitRunnable
         armor = player.getInventory().getArmorContents();
         npc = new NPC(player,this);
         wasKilled = null;
-        this.runTaskLater(AnnihilationMain.getInstance(), GameVars.getNpcTimeout()*20); //NPC timeout comes from the config
+        this.runTaskLater(AnnihilationMain.getInstance(), GameVars.getNpcTimeout()* 20L); //NPC timeout comes from the config
     }
 
     public Boolean wasKilled()

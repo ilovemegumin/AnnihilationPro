@@ -49,20 +49,17 @@ public class Miner extends ConfigurableKit
 	protected List<String> getDefaultDescription()
 	{
 		List<String> l = new ArrayList<String>();
-		addToList(l,new String[]
-				{
-					aqua+"You are the hands.", 
-					"",
-					aqua+"Mine precious resources", 
-					aqua+"to gear up your team as", 
-					aqua+"well as yourself so you", 
-					aqua+"will strike swiftly and", 
-					aqua+"with strength on battlefield!", 
-					"",
-					aqua+"Start with an effeciency", 
-					aqua+"pick, 4 coal, and a furnace", 
-					aqua+"to get minerals quicker.", 
-				});
+		addToList(l, aqua+"You are the hands.",
+                "",
+                aqua+"Mine precious resources",
+                aqua+"to gear up your team as",
+                aqua+"well as yourself so you",
+                aqua+"will strike swiftly and",
+                aqua+"with strength on battlefield!",
+                "",
+                aqua+"Start with an effeciency",
+                aqua+"pick, 4 coal, and a furnace",
+                aqua+"to get minerals quicker.");
 		return l;
 	}
 

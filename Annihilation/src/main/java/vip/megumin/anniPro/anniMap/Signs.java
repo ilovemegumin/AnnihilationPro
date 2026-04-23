@@ -31,7 +31,7 @@ import vip.megumin.anniPro.utils.ShopMenu;
 
 public final class Signs implements Iterable<AnniSign>, Listener
 {
-	private Map<MapKey,AnniSign> signs;
+	private final Map<MapKey,AnniSign> signs;
 	public Signs()
 	{
 		signs = new HashMap<MapKey,AnniSign>();
@@ -74,9 +74,9 @@ public final class Signs implements Iterable<AnniSign>, Listener
 		{
 			String[] lore;
 			if(sign.getType().equals(SignType.Brewing))
-				lore = new String[]{g+"["+Lang.SHOP.toString()+g+"]",Lang.BREWINGSIGN.toString()};
+				lore = new String[]{g+"["+ Lang.SHOP +g+"]",Lang.BREWINGSIGN.toString()};
 			else if(sign.getType().equals(SignType.Weapon))
-				lore = new String[]{g+"["+Lang.SHOP.toString()+g+"]",Lang.WEAPONSIGN.toString()};
+				lore = new String[]{g+"["+ Lang.SHOP +g+"]",Lang.WEAPONSIGN.toString()};
 			else
 			{
 				AnniTeam team = sign.getType().getTeam();
@@ -115,7 +115,7 @@ public final class Signs implements Iterable<AnniSign>, Listener
 	
 	public boolean removeSign(Location sign)
 	{
-		boolean b = signs.remove(MapKey.getKey(sign)) == null ? false : true;
+		boolean b = signs.remove(MapKey.getKey(sign)) != null;
 		if(b)
 			sign.getWorld().getBlockAt(sign).setType(Material.AIR);
 		return b;

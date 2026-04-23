@@ -7,11 +7,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URL;
 import java.net.HttpURLConnection;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -32,7 +28,7 @@ import org.json.simple.parser.JSONParser;
 public class ProfileUtils {
     private ProfileUtils() {}
 
-    private static Cache<String, PlayerProfile> nameCache = new Cache<>();
+    private static final Cache<String, PlayerProfile> nameCache = new Cache<>();
 
     /**
      * Lookup a profile with the given name
@@ -112,13 +108,11 @@ public class ProfileUtils {
     }
     
     
-    private static Cache<UUID, PlayerProfile> idCache = new Cache<>();
+    private static final Cache<UUID, PlayerProfile> idCache = new Cache<>();
     
     private static List<PlayerProfile> postNames(String[] names) { //This one doesn't cache
         JSONArray request = new JSONArray();
-        for (String name : names) {
-            request.add(name);
-        }
+        Collections.addAll(request, names);
         Object rawResponse = postJson("https://api.mojang.com/profiles/minecraft", request);
         if (!(rawResponse instanceof JSONArray)) return null;
         JSONArray response = (JSONArray) rawResponse;
@@ -170,7 +164,7 @@ public class ProfileUtils {
         return UUID.fromString(dashed);
     }
     
-    private static JSONParser PARSER = new JSONParser();
+    private static final JSONParser PARSER = new JSONParser();
     
     private static Object getJson(String rawUrl) {
         BufferedReader reader = null;
@@ -240,8 +234,8 @@ public class ProfileUtils {
     
     private static class Cache<K, V> {
 
-        private long expireTime = 1000 * 60 * 5; //default 5 min
-        private Map<K, CachedEntry<V>> map = new HashMap<>();
+        private final long expireTime = 1000 * 60 * 5; //default 5 min
+        private final Map<K, CachedEntry<V>> map = new HashMap<>();
 
         public boolean contains(K key) {
             return map.containsKey(key) && get(key) != null;

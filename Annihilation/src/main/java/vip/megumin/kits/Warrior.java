@@ -50,25 +50,22 @@ public class Warrior extends ConfigurableKit
 	protected List<String> getDefaultDescription()
 	{
 		List<String> l = new ArrayList<String>();
-		addToList(l,new String[]
-				{
-					aqua+"You are the sword.", 
-					"",
-					aqua+"You deal +1 damage with",
-					aqua+"any melee weapon.", 
-					"", 
-					aqua+"Spawn with a sword and",
-					aqua+"a health potion which",
-					aqua+"enable you to immediately",
-					aqua+"move on the enemy and",
-					aqua+"attack!",
-					"",
-					aqua+"If you do not have a good",
-					aqua+"support back at base gathering",
-					aqua+"better gear for you, you",
-					aqua+"will be useless in the",
-					aqua+"late game."
-				});
+		addToList(l, aqua+"You are the sword.",
+                "",
+                aqua+"You deal +1 damage with",
+                aqua+"any melee weapon.",
+                "",
+                aqua+"Spawn with a sword and",
+                aqua+"a health potion which",
+                aqua+"enable you to immediately",
+                aqua+"move on the enemy and",
+                aqua+"attack!",
+                "",
+                aqua+"If you do not have a good",
+                aqua+"support back at base gathering",
+                aqua+"better gear for you, you",
+                aqua+"will be useless in the",
+                aqua+"late game.");
 		return l;
 	}
 

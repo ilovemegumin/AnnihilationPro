@@ -36,7 +36,7 @@ class QueryXP implements AsyncQuery
 	@Override
 	public String getQuerey()
 	{
-		return "SELECT * FROM tbl_player_xp WHERE ID='"+playerID.toString()+"'";
+		return "SELECT * FROM tbl_player_xp WHERE ID='"+ playerID +"'";
 
 	}
 

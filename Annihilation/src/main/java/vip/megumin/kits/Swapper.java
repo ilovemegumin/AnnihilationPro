@@ -46,8 +46,7 @@ public class Swapper extends SpecialItemKit
 		if(stack != null && stack.hasItemMeta() && stack.getItemMeta().hasDisplayName())
 		{
 			String name = stack.getItemMeta().getDisplayName();
-			if(name.contains(getSpecialItemName()) && KitUtils.isSoulbound(stack))
-				return true;
+            return name.contains(getSpecialItemName()) && KitUtils.isSoulbound(stack);
 		}
 		return false;
 	}	
@@ -103,26 +102,23 @@ public class Swapper extends SpecialItemKit
 	protected List<String> getDefaultDescription()
 	{
 		List<String> l = new ArrayList<String>();
-		addToList(l,new String[]
-				{
-					aqua+"The swapper is able to",
-					aqua+"swap places with a nearby",
-					aqua+"enemy every 20 seconds.",
-					"",
-					aqua+"The enemy that is swapped",
-					aqua+"has slowness 2 applied",
-					aqua+"for three seconds.",
-					"",
-					aqua+"The swapper is a team",
-					aqua+"based ganking class that",
-					aqua+"is best suited for players",
-					aqua+"moving in groups and can",
-					aqua+"be used to bring enemies",
-					aqua+"to a location or bring",
-					aqua+"yourself to a more advantageous",
-					aqua+"position once held by",
-					aqua+"your enemy.",
-				});
+		addToList(l, aqua+"The swapper is able to",
+                aqua+"swap places with a nearby",
+                aqua+"enemy every 20 seconds.",
+                "",
+                aqua+"The enemy that is swapped",
+                aqua+"has slowness 2 applied",
+                aqua+"for three seconds.",
+                "",
+                aqua+"The swapper is a team",
+                aqua+"based ganking class that",
+                aqua+"is best suited for players",
+                aqua+"moving in groups and can",
+                aqua+"be used to bring enemies",
+                aqua+"to a location or bring",
+                aqua+"yourself to a more advantageous",
+                aqua+"position once held by",
+                aqua+"your enemy.");
 		return l;
 	}
 

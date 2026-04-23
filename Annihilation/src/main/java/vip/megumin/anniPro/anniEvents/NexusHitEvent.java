@@ -10,7 +10,7 @@ public final class NexusHitEvent extends Event implements Cancellable
 {
     private  static  final HandlerList list = new HandlerList();
 
-    private  AnniPlayer player;
+    private final AnniPlayer player;
     private final Nexus nexus;
 	private int damage;
     private boolean cancelled;

@@ -22,7 +22,7 @@ public class RegenBlockPrompt extends ValidatingPrompt
 	private final ChatColor gold = ChatColor.GOLD;
 	private final ChatColor red = ChatColor.RED;
 	private final ChatColor green = ChatColor.GREEN;
-	private Material mat;
+	private final Material mat;
 	private Integer dataVal = -1;
 	private boolean regenerate = true;
 	private boolean cobbleReplace = true;

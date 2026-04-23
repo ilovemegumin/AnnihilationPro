@@ -81,11 +81,8 @@ public abstract class Kit implements Listener, Comparable<Kit>
 		Kit other = (Kit) obj;
 		if (this.getName() == null)
 		{
-			if (other.getName() != null)
-				return false;
+            return other.getName() == null;
 		}
-		else if (!this.getName().equals(other.getName()))
-			return false;
-		return true;
-	}
+		else return this.getName().equals(other.getName());
+    }
 }

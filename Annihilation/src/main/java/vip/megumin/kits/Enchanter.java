@@ -46,17 +46,14 @@ public class Enchanter extends ConfigurableKit
 	protected List<String> getDefaultDescription()
 	{
 		List<String> l = new ArrayList<String>();
-		addToList(l,new String[]
-				{
-					aqua+"Gain extra exp when gathering",
-					aqua+"resources which enables",
-					aqua+"quicker level succession.",
-					aqua+"",
-					aqua+"There is a small chance",
-					aqua+"to obtain experience bottles",
-					aqua+"when mining ores and chopping",
-					aqua+"wood.",
-				});
+		addToList(l, aqua+"Gain extra exp when gathering",
+                aqua+"resources which enables",
+                aqua+"quicker level succession.",
+                aqua+"",
+                aqua+"There is a small chance",
+                aqua+"to obtain experience bottles",
+                aqua+"when mining ores and chopping",
+                aqua+"wood.");
 		return l;
 	}
 

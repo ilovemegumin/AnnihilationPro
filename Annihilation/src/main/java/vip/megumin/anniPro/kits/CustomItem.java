@@ -52,11 +52,11 @@ public enum CustomItem
 							});
 							
 	
-	private String name;
-	private String[] lore;
-	private Material type;
-	private byte data;
-	private boolean soulBound;
+	private final String name;
+	private final String[] lore;
+	private final Material type;
+	private final byte data;
+	private final boolean soulBound;
 
 	CustomItem(String name, Material type, byte data, boolean soulBound, String[] lore) 
 	{

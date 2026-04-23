@@ -13,7 +13,7 @@ import com.google.common.base.Predicate;
 
 public class KitArgument implements AnniArgument
 {
-	private XPSystem xpSystem;
+	private final XPSystem xpSystem;
 	public KitArgument(XPSystem system)
 	{
 		this.xpSystem = system;

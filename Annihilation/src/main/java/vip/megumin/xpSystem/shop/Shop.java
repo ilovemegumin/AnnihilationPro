@@ -28,7 +28,7 @@ public class Shop implements CommandExecutor
 	static String notEnoughXP;
 	static String kitPurchased;
 	String noKitsToPurchase;
-	private KitShopMenuItem[] items;
+	private final KitShopMenuItem[] items;
 	private final Map<UUID,ItemMenu> menus;
 	
 	public Shop(XPSystem system, ConfigurationSection shopSection)

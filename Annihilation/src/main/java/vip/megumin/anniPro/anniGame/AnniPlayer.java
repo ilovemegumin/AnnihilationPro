@@ -213,7 +213,7 @@ public final class AnniPlayer
 		catch(IllegalArgumentException e1) 
 		{
 			Random rnd = new Random();
-			name = (name.length() > 11 ? name.substring(0, 11) : name) + "" + rnd.nextInt(9);
+			name = (name.length() > 11 ? name.substring(0, 11) : name) + rnd.nextInt(9);
 			try 
 			{
 				Player p = this.getPlayer();

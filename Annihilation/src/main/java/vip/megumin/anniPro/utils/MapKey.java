@@ -14,7 +14,7 @@ public class MapKey implements Comparable<MapKey>
 		return location != null ? getKey(location.toLocation()) : null;
 	}
 	
-	private String key;	
+	private final String key;
 	private MapKey(String key)
 	{
 		this.key = key;
@@ -41,13 +41,10 @@ public class MapKey implements Comparable<MapKey>
 		MapKey other = (MapKey) obj;
 		if (key == null)
 		{
-			if (other.key != null)
-				return false;
+            return other.key == null;
 		}
-		else if (!key.equals(other.key))
-			return false;
-		return true;
-	}
+		else return key.equals(other.key);
+    }
 
 	@Override
 	public int compareTo(MapKey o)

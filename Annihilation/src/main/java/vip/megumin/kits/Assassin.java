@@ -56,8 +56,7 @@ public class Assassin extends SpecialItemKit
 		if(stack != null && stack.hasItemMeta() && stack.getItemMeta().hasDisplayName())
 		{
 			String name = stack.getItemMeta().getDisplayName();
-			if(name.contains(getSpecialItemName()) && KitUtils.isSoulbound(stack))
-				return true;
+            return name.contains(getSpecialItemName()) && KitUtils.isSoulbound(stack);
 		}
 		return false;
 	}
@@ -177,23 +176,20 @@ public class Assassin extends SpecialItemKit
 	protected List<String> getDefaultDescription()
 	{
 		List<String> l = new ArrayList<String>();
-		addToList(l,new String[]
-			{
-				aqua+"Leap over high objects",
-				aqua+"while not taking any fall",
-				aqua+"damage and sneakily take",
-				aqua+"out all your opponents.",
-				"",
-				aqua+"While you have leapt you",
-				aqua+"have the invisibility,",
-				aqua+"haste and speed buffs.",
-				"",
-				aqua+"When using the ability",
-				aqua+"your armor dissapears.",
-				aqua+"However, when you are hit",
-				aqua+"or when you hit someone",
-				aqua+"your armor reappears.",
-			});
+		addToList(l, aqua+"Leap over high objects",
+                aqua+"while not taking any fall",
+                aqua+"damage and sneakily take",
+                aqua+"out all your opponents.",
+                "",
+                aqua+"While you have leapt you",
+                aqua+"have the invisibility,",
+                aqua+"haste and speed buffs.",
+                "",
+                aqua+"When using the ability",
+                aqua+"your armor dissapears.",
+                aqua+"However, when you are hit",
+                aqua+"or when you hit someone",
+                aqua+"your armor reappears.");
 		return l;
 	}
 

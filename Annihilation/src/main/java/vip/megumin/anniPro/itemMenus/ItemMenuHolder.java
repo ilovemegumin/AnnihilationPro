@@ -9,8 +9,8 @@ import org.bukkit.inventory.InventoryHolder;
  */
 public class ItemMenuHolder implements InventoryHolder
 {
-	private ItemMenu menu;
-	private Inventory inventory;
+	private final ItemMenu menu;
+	private final Inventory inventory;
 
 	public ItemMenuHolder(ItemMenu menu, Inventory inventory)
 	{

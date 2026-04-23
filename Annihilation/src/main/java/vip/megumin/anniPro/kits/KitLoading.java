@@ -236,7 +236,10 @@ public class KitLoading implements Listener, CommandExecutor
 		}
 	}
 
-	private String redcompass,bluecompass,greencompass,yellowcompass;
+	private final String redcompass;
+    private final String bluecompass;
+    private final String greencompass;
+    private final String yellowcompass;
 	
 	@EventHandler(priority=EventPriority.HIGHEST)
 	public void navCompassCheck(PlayerInteractEvent event)

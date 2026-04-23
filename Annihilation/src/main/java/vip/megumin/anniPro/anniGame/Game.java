@@ -23,8 +23,8 @@ public class Game
 	private static GameMap GameMap = null;
 	public static LobbyMap LobbyMap = null;
 	
-	private static Map<String,String> worldNames = new HashMap<String,String>();
-	private static Map<String,String> niceNames = new HashMap<String,String>();
+	private static final Map<String,String> worldNames = new HashMap<String,String>();
+	private static final Map<String,String> niceNames = new HashMap<String,String>();
 	
 	private static boolean GameRunning = false;
 	

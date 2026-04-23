@@ -11,7 +11,7 @@ import vip.megumin.anniPro.anniMap.RegeneratingBlock;
 public class ResourceBreakEvent extends Event implements Cancellable
 {
     private static final HandlerList list = new HandlerList();
-	private RegeneratingBlock resource;
+	private final RegeneratingBlock resource;
 	private int xp;
 	private ItemStack[] endresult;
     private boolean cancelled;
@@ -21,7 +21,7 @@ public class ResourceBreakEvent extends Event implements Cancellable
         return player;
     }
 
-    private AnniPlayer player;
+    private final AnniPlayer player;
 
     @Override
     public boolean isCancelled()

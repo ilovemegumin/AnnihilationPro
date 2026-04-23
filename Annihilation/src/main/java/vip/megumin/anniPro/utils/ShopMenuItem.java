@@ -19,7 +19,7 @@ public class ShopMenuItem extends MenuItem
 	private final int cost;
 	public ShopMenuItem(ItemStack displayStack, ItemStack productStack, int cost)
 	{
-		super(null, null,new String[0]);
+		super(null, null);
 		this.display = displayStack.clone();
 		this.product = productStack.clone();
 		ArrayList<String> l = new ArrayList<String>();

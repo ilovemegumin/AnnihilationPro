@@ -43,16 +43,13 @@ public class Lumberjack extends ConfigurableKit
 		protected List<String> getDefaultDescription()
 		{
 			List<String> l = new ArrayList<String>();
-			addToList(l,new String[]
-				{
-					aqua+"You are the wedge.",
-					"",
-					aqua+"Gather wood with an efficiency",
-					aqua+"axe and with the chance",
-					aqua+"of gaining double yeild,",
-					aqua+"ensuring quick work of",
-					aqua+"any trees in your way.",
-				});
+			addToList(l, aqua+"You are the wedge.",
+                    "",
+                    aqua+"Gather wood with an efficiency",
+                    aqua+"axe and with the chance",
+                    aqua+"of gaining double yeild,",
+                    aqua+"ensuring quick work of",
+                    aqua+"any trees in your way.");
 			return l;
 		}
 

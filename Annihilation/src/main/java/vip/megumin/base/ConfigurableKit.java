@@ -1,5 +1,6 @@
 package vip.megumin.base;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.bukkit.Bukkit;
@@ -85,8 +86,7 @@ public abstract class ConfigurableKit extends Kit
 	
 	protected void addToList(List<String> list, String... strings)
 	{
-		for(String str : strings)
-			list.add(str);
+        Collections.addAll(list, strings);
 	}
 	
 	@Override

@@ -71,8 +71,7 @@ public class Scout extends ConfigurableKit
 		if(stack != null && stack.hasItemMeta() && stack.getItemMeta().hasDisplayName())
 		{
 			String name = stack.getItemMeta().getDisplayName();
-			if(name.contains(this.grappleName) && KitUtils.isSoulbound(stack))
-				return true;
+            return name.contains(this.grappleName) && KitUtils.isSoulbound(stack);
 		}
 		return false;
 	}	
@@ -81,17 +80,14 @@ public class Scout extends ConfigurableKit
 	protected List<String> getDefaultDescription()
 	{
 		List<String> l = new ArrayList<String>();
-		addToList(l,new String[]
-				{
-					aqua+"You are the feet.",
-					"",
-					aqua+"Use your permanent speed",
-					aqua+"boost to maneuver around",
-					aqua+"the battlefield, and your",
-					aqua+"grapple to ascend to new",
-					aqua+"heights and gain perspective",
-					aqua+"on the battlefield.",
-				});
+		addToList(l, aqua+"You are the feet.",
+                "",
+                aqua+"Use your permanent speed",
+                aqua+"boost to maneuver around",
+                aqua+"the battlefield, and your",
+                aqua+"grapple to ascend to new",
+                aqua+"heights and gain perspective",
+                aqua+"on the battlefield.");
 		return l;
 	}
 	

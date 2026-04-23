@@ -88,10 +88,10 @@ public class Delays
 	
 	private class Delay
 	{
-		private UUID playerID;
-		private int DelayID;
-		private long endTime;
-		private DelayUpdate handler;
+		private final UUID playerID;
+		private final int DelayID;
+		private final long endTime;
+		private final DelayUpdate handler;
 		
 		public Delay(UUID playerID, int ID, long end, DelayUpdate handler)
 		{
@@ -137,13 +137,10 @@ public class Delays
 				return false;
 			if (playerID == null)
 			{
-				if (other.playerID != null)
-					return false;
+                return other.playerID == null;
 			}
-			else if (!playerID.equals(other.playerID))
-				return false;
-			return true;
-		}
+			else return playerID.equals(other.playerID);
+        }
 
 	}
 }

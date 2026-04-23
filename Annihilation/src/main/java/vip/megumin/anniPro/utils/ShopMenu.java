@@ -29,11 +29,7 @@ public class ShopMenu
 			boolean cat = true;
 			switch(x)
 			{
-				default:
-					cat = false;
-					break;
-
-				case 0:
+                case 0:
 					icon = new ItemStack(Material.CHAINMAIL_HELMET,1);
 					cost = 10;
 					break;
@@ -77,7 +73,11 @@ public class ShopMenu
 					icon = new ItemStack(Material.BOOK,1);
 					cost = 5;
 					break;
-			}
+                default:
+                    cat = false;
+                    break;
+
+            }
 			if(cat)
 				menu.setItem(x, new ShopMenuItem(icon, icon, cost));
 		}
@@ -92,11 +92,7 @@ public class ShopMenu
 			boolean cat = true;
 			switch(x)
 			{
-				default:
-					cat = false;
-					break;
-
-				case 0:
+                case 0:
 					icon = new ItemStack(Material.BREWING_STAND_ITEM,1);
 					cost = 10;
 					break;
@@ -148,8 +144,12 @@ public class ShopMenu
 					icon = new ItemStack(Material.SPIDER_EYE,1);
 					cost = 2;
 					break;
-				
-			}
+
+                default:
+                    cat = false;
+                    break;
+
+            }
 			if(cat)
 				menu.setItem(x, new ShopMenuItem(icon, icon, cost){});
 		}

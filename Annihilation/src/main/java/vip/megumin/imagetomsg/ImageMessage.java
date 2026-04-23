@@ -36,7 +36,7 @@ public class ImageMessage {
             new Color(255, 255, 255),
     };
 
-    private String[] lines;
+    private final String[] lines;
 
     public ImageMessage(BufferedImage image, int height, char imgChar) {
         ChatColor[][] chatColors = toChatColorArray(image, height);
@@ -185,7 +185,7 @@ public class ImageMessage {
             for (int i = 0; i < leftPadding; i++) {
                 leftBuilder.append(" ");
             }
-            return leftBuilder.toString() + s;
+            return leftBuilder + s;
         }
     }
 

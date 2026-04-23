@@ -12,7 +12,7 @@ import com.google.common.base.Predicate;
 
 public class XPArgument implements AnniArgument
 {
-	private XPSystem xpSystem;
+	private final XPSystem xpSystem;
 	public XPArgument(XPSystem system)
 	{
 		this.xpSystem = system;

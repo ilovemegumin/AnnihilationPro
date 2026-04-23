@@ -26,8 +26,8 @@ public final class PlayerKilledEvent extends Event
 		NEXUSATTACK,
 	}
 
-    private AnniPlayer player;
-	private AnniPlayer killer;
+    private final AnniPlayer player;
+	private final AnniPlayer killer;
 	private boolean dropXP;
 	private final List<KillAttribute> attributes;
 	

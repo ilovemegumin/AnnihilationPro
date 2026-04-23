@@ -1,6 +1,7 @@
 package vip.megumin.anniPro.kits;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import org.bukkit.inventory.ItemStack;
 
@@ -43,8 +44,7 @@ public class IconPackage
 		if(lore != null)
 		{
 			ArrayList<String> str = new ArrayList<String>();
-			for(String x : lore)
-				str.add(x);
+            Collections.addAll(str, lore);
 			KitUtils.setLore(s,str);
 		}
 		return s;

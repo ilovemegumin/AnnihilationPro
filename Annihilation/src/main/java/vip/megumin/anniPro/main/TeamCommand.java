@@ -38,8 +38,8 @@ import vip.megumin.anniPro.kits.KitUtils;
 
 public class TeamCommand implements CommandExecutor, Listener
 {
-	private ItemMenu menu;
-	private Map<ChatColor,ImageMessage> messages;
+	private final ItemMenu menu;
+	private final Map<ChatColor,ImageMessage> messages;
 	public TeamCommand(JavaPlugin plugin)
 	{
 		menu = new ItemMenu("Join a Team",Size.ONE_LINE);
@@ -87,7 +87,7 @@ public class TeamCommand implements CommandExecutor, Listener
 				{
 					event.getPlayer().performCommand("Team "+team.getName());
 					event.setWillClose(true);
-				}},new ItemStack(Material.WOOL,0,datavalue),new String[]{});
+				}},new ItemStack(Material.WOOL,0,datavalue));
 			menu.setItem(x, item);
 			x++;
 		}
@@ -97,7 +97,7 @@ public class TeamCommand implements CommandExecutor, Listener
 			{
 				event.getPlayer().performCommand("Team Leave");
 				event.setWillClose(true);
-			}},new ItemStack(Material.WOOL),new String[]{}));
+			}},new ItemStack(Material.WOOL)));
 	}
 	
 	@EventHandler(priority=EventPriority.HIGH)

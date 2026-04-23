@@ -56,23 +56,20 @@ public class Archer extends ConfigurableKit
 	protected List<String> getDefaultDescription()
 	{
 		List<String> l = new ArrayList<String>();
-		addToList(l,new String[]
-				{
-					aqua+"You are the rain.", 
-					"",
-					aqua+"Obliterate your enemies",
-					aqua+"from a distance.", 
-					"", 
-					aqua+"You deal +1 damage with",
-					aqua+"any bow and you have the",
-					aqua+"ability to create arrows",
-					aqua+"from flint and stucks.",
-					"",
-					aqua+"Just put a flint on top",
-					aqua+"of a stick in your crafting",
-					aqua+"interface to create 3",
-					aqua+"arrows!",
-				});
+		addToList(l, aqua+"You are the rain.",
+                "",
+                aqua+"Obliterate your enemies",
+                aqua+"from a distance.",
+                "",
+                aqua+"You deal +1 damage with",
+                aqua+"any bow and you have the",
+                aqua+"ability to create arrows",
+                aqua+"from flint and stucks.",
+                "",
+                aqua+"Just put a flint on top",
+                aqua+"of a stick in your crafting",
+                aqua+"interface to create 3",
+                aqua+"arrows!");
 		return l;
 	}
 

@@ -57,14 +57,14 @@ public final class AnniTeam
 	private final ChatColor Color;
 	private final Nexus Nexus;
 	
-	private List<AnniPlayer> players;
-	private Team scoreboardTeam;
+	private final List<AnniPlayer> players;
+	private final Team scoreboardTeam;
 	
 	private final String externalName;
 	private final String name;
 	private int Health = 75;
-	private LinkedList<Loc> spawns;
-	private Random rand;
+	private final LinkedList<Loc> spawns;
+	private final Random rand;
 	private Loc spectatorLocation;
 
 	private AnniTeam(ChatColor color)
@@ -76,7 +76,7 @@ public final class AnniTeam
 		Nexus = new Nexus(this);
 		this.spectatorLocation = null;
 		Bukkit.getPluginManager().registerEvents(Nexus, AnnihilationMain.getInstance());
-		name = this.Color.name().substring(0, 1)+this.Color.name().substring(1).toLowerCase();
+		name = this.Color.name().charAt(0)+this.Color.name().substring(1).toLowerCase();
 		
 		if(color == ChatColor.RED)
 			externalName = Lang.REDTEAM.toString();

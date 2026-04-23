@@ -56,8 +56,7 @@ public class Pyro extends SpecialItemKit
 		if(stack != null && stack.hasItemMeta() && stack.getItemMeta().hasDisplayName())
 		{
 			String name = stack.getItemMeta().getDisplayName();
-			if(name.contains(getSpecialItemName()) && KitUtils.isSoulbound(stack))
-				return true;
+            return name.contains(getSpecialItemName()) && KitUtils.isSoulbound(stack);
 		}
 		return false;
 	}
@@ -114,19 +113,16 @@ public class Pyro extends SpecialItemKit
 	protected List<String> getDefaultDescription()
 	{
 		List<String> l = new ArrayList<String>();
-		addToList(l,new String[]
-				{
-					aqua+"You are the flame.",
-					aqua+"",
-					aqua+"You are not afraid of",
-					aqua+"lava and fire because",
-					aqua+"you are immune, but your",
-					aqua+"enemies are not.",
-					aqua+"",
-					aqua+"Every hit you land has",
-					aqua+"a chance of igniting your",
-					aqua+"enemy.",
-				});
+		addToList(l, aqua+"You are the flame.",
+                aqua+"",
+                aqua+"You are not afraid of",
+                aqua+"lava and fire because",
+                aqua+"you are immune, but your",
+                aqua+"enemies are not.",
+                aqua+"",
+                aqua+"Every hit you land has",
+                aqua+"a chance of igniting your",
+                aqua+"enemy.");
 		return l;
 	}
 

@@ -55,8 +55,7 @@ public class Scorpio extends ConfigurableKit
 		if(stack != null && stack.hasItemMeta() && stack.getItemMeta().hasDisplayName())
 		{
 			String name = stack.getItemMeta().getDisplayName();
-			if(name.contains(this.hookItemName) && KitUtils.isSoulbound(stack))
-				return true;
+            return name.contains(this.hookItemName) && KitUtils.isSoulbound(stack);
 		}
 		return false;
 	}	
@@ -91,17 +90,13 @@ public class Scorpio extends ConfigurableKit
 	protected List<String> getDefaultDescription()
 	{
 		List<String> l = new ArrayList<String>();
-		addToList(l,new String[]
-				{
-					aqua+"You are the hook.",
-					"",
-					aqua+"Use your hook to quickly",
-					aqua+"reach allies by pulling",
-					aqua+"yourself to them, or use",
-					aqua+"it on enemies to pull",
-					aqua+"the enemy to you.",
-					
-				});
+		addToList(l, aqua+"You are the hook.",
+                "",
+                aqua+"Use your hook to quickly",
+                aqua+"reach allies by pulling",
+                aqua+"yourself to them, or use",
+                aqua+"it on enemies to pull",
+                aqua+"the enemy to you.");
 		return l;
 	}
 
